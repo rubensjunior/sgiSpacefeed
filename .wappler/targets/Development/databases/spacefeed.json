@@ -13,81 +13,8 @@
       "public"
     ],
     "tables": {
-      "usuarios": {
-        "db": {},
-        "sub": {
-          "usuarios_empresas": "id_usuario"
-        },
-        "columns": {
-          "id_usuario": {
-            "db": {
-              "type": "increments",
-              "default": "",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "nome_usuario": {
-            "db": {
-              "type": "string",
-              "maxLength": 255,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "email_usuario": {
-            "db": {
-              "type": "string",
-              "maxLength": 255,
-              "primary": false,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "senha_usuario": {
-            "db": {
-              "type": "text",
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "telefone_usuario": {
-            "db": {
-              "type": "string",
-              "maxLength": 20,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "criado_em": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "atualizado_em": {
-            "db": {
-              "type": "timestamp",
-              "default": "now()",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
-        }
-      },
       "empresas": {
         "db": {},
-        "refs": {
-          "usuarios_empresas": "id_empresa"
-        },
         "columns": {
           "id_empresa": {
             "db": {
@@ -159,12 +86,132 @@
               "unique": false,
               "nullable": true
             }
+          },
+          "nome_polo": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "nome_fantasia": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "celular_empresa": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "cep_empresa": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
           }
+        },
+        "refs": {
+          "usuarios_empresas": "id_empresa"
+        }
+      },
+      "usuarios": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_usuario": {
+            "db": {
+              "type": "increments",
+              "default": "",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "nome_usuario": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "email_usuario": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "senha_usuario": {
+            "db": {
+              "type": "text",
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "telefone_usuario": {
+            "db": {
+              "type": "string",
+              "maxLength": 20,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "criado_em": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "atualizado_em": {
+            "db": {
+              "type": "timestamp",
+              "default": "now()",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "empresa_selecionada": {
+            "db": {
+              "type": "integer",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        },
+        "sub": {
+          "usuarios_empresas": "id_usuario"
         }
       },
       "usuarios_empresas": {
-        "db": {},
-        "parent": "usuarios",
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_usuario": {
             "db": {
@@ -201,7 +248,8 @@
               "nullable": true
             }
           }
-        }
+        },
+        "parent": "usuarios"
       }
     },
     "views": {}

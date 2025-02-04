@@ -1,0 +1,506 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/cadastrar-conta.ejs",
+      "linkedForm": "cadastrarFormConta"
+    },
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "razaoSocial",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "razaoSocial"
+      },
+      {
+        "type": "text",
+        "fieldName": "nomeFantasia",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "nomeFantasia"
+      },
+      {
+        "type": "text",
+        "fieldName": "nomePolo",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "nomePolo"
+      },
+      {
+        "type": "text",
+        "fieldName": "cnpjEmpresa",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "cnpjEmpresa"
+      },
+      {
+        "type": "text",
+        "fieldName": "numCel",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "numCel"
+      },
+      {
+        "type": "text",
+        "fieldName": "numTel",
+        "name": "numTel"
+      },
+      {
+        "type": "text",
+        "fieldName": "enderecoPolo",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "enderecoPolo"
+      },
+      {
+        "type": "text",
+        "fieldName": "cepPolo",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "cepPolo"
+      },
+      {
+        "type": "text",
+        "fieldName": "nomeUsuario",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "nomeUsuario"
+      },
+      {
+        "type": "text",
+        "fieldName": "emailUsuario",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            },
+            "core:email": {
+              "param": "",
+              "message": "Insira um e-mail válido!"
+            }
+          }
+        },
+        "name": "emailUsuario"
+      },
+      {
+        "type": "text",
+        "fieldName": "senhaUsuario",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "senhaUsuario"
+      },
+      {
+        "type": "text",
+        "fieldName": "senhaUsuarioConfirmacao",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "senhaUsuarioConfirmacao"
+      },
+      {
+        "type": "text",
+        "fieldName": "obsEndereco",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "obsEndereco"
+      },
+      {
+        "type": "text",
+        "name": "telefone_usuario"
+      },
+      {
+        "type": "datetime",
+        "name": "criado_em"
+      },
+      {
+        "type": "datetime",
+        "name": "atualizado_em"
+      },
+      {
+        "type": "number",
+        "name": "empresa_selecionada"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "hash",
+        "module": "crypto",
+        "action": "passwordHash",
+        "options": {
+          "password": "{{$_POST.senhaUsuario}}"
+        },
+        "outputType": "text"
+      },
+      {
+        "name": "insertEmpresa",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "spacefeed",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "empresas",
+                "column": "nome_empresa",
+                "type": "text",
+                "value": "{{$_POST.razaoSocial}}"
+              },
+              {
+                "table": "empresas",
+                "column": "cnpj_empresa",
+                "type": "text",
+                "value": "{{$_POST.cnpjEmpresa}}"
+              },
+              {
+                "table": "empresas",
+                "column": "telefone_empresa",
+                "type": "text",
+                "value": "{{$_POST.numTel}}"
+              },
+              {
+                "table": "empresas",
+                "column": "endereco_empresa",
+                "type": "text",
+                "value": "{{$_POST.enderecoPolo}}"
+              },
+              {
+                "table": "empresas",
+                "column": "criado_em",
+                "type": "datetime",
+                "value": "{{NOW}}"
+              },
+              {
+                "table": "empresas",
+                "column": "atualizado_em",
+                "type": "datetime",
+                "value": "{{NOW}}"
+              },
+              {
+                "table": "empresas",
+                "column": "nome_polo",
+                "type": "text",
+                "value": "{{$_POST.nomePolo}}"
+              },
+              {
+                "table": "empresas",
+                "column": "nome_fantasia",
+                "type": "text",
+                "value": "{{$_POST.nomeFantasia}}"
+              },
+              {
+                "table": "empresas",
+                "column": "celular_empresa",
+                "type": "text",
+                "value": "{{$_POST.numCel}}"
+              },
+              {
+                "table": "empresas",
+                "column": "cep_empresa",
+                "type": "text",
+                "value": "{{$_POST.cepPolo}}"
+              }
+            ],
+            "table": "empresas",
+            "returning": "id_empresa",
+            "query": "insert into \"empresas\" (\"atualizado_em\", \"celular_empresa\", \"cep_empresa\", \"cnpj_empresa\", \"criado_em\", \"endereco_empresa\", \"nome_empresa\", \"nome_fantasia\", \"nome_polo\", \"telefone_empresa\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) returning \"id_empresa\"",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.razaoSocial}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.cnpjEmpresa}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.numTel}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{$_POST.enderecoPolo}}",
+                "test": ""
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              },
+              {
+                "name": ":P6",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              },
+              {
+                "name": ":P7",
+                "type": "expression",
+                "value": "{{$_POST.nomePolo}}",
+                "test": ""
+              },
+              {
+                "name": ":P8",
+                "type": "expression",
+                "value": "{{$_POST.nomeFantasia}}",
+                "test": ""
+              },
+              {
+                "name": ":P9",
+                "type": "expression",
+                "value": "{{$_POST.numCel}}",
+                "test": ""
+              },
+              {
+                "name": ":P10",
+                "type": "expression",
+                "value": "{{$_POST.cepPolo}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "name": "insertUsuario",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "spacefeed",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "usuarios",
+                "column": "nome_usuario",
+                "type": "text",
+                "value": "{{$_POST.nomeUsuario}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "email_usuario",
+                "type": "text",
+                "value": "{{$_POST.emailUsuario}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "senha_usuario",
+                "type": "text",
+                "value": "{{hash}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "criado_em",
+                "type": "datetime",
+                "value": "{{NOW}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "atualizado_em",
+                "type": "datetime",
+                "value": "{{NOW}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "empresa_selecionada",
+                "type": "number",
+                "value": "{{insertEmpresa.identity}}"
+              }
+            ],
+            "table": "usuarios",
+            "returning": "id_usuario",
+            "query": "insert into \"usuarios\" (\"atualizado_em\", \"criado_em\", \"email_usuario\", \"empresa_selecionada\", \"nome_usuario\", \"senha_usuario\") values (?, ?, ?, ?, ?, ?) returning \"id_usuario\"",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.nomeUsuario}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.emailUsuario}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{hash}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              },
+              {
+                "name": ":P6",
+                "type": "expression",
+                "value": "{{insertEmpresa.identity}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "name": "insertEmpresaUsuario",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "spacefeed",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "usuarios_empresas",
+                "column": "id_usuario",
+                "type": "number",
+                "value": "{{insertUsuario.identity}}"
+              },
+              {
+                "table": "usuarios_empresas",
+                "column": "id_empresa",
+                "type": "number",
+                "value": "{{insertEmpresa.identity}}"
+              }
+            ],
+            "table": "usuarios_empresas",
+            "query": "insert into \"usuarios_empresas\" (\"id_empresa\", \"id_usuario\") values (?, ?)",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{insertUsuario.identity}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{insertEmpresa.identity}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  },
+  "usedModules": {
+    "argon2": "^0.30.2"
+  }
+}
