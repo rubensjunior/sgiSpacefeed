@@ -13,7 +13,8 @@
       "username": "email_usuario",
       "password": "senha_usuario"
     },
-    "permissions": {}
+    "permissions": {},
+    "secure": true
   },
   "meta": [
     {
