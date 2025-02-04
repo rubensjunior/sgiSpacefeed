@@ -1,0 +1,15 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "page": "index",
+      "routeType": "page",
+      "layout": "main"
+    },
+    {
+      "path": "/cadastrar-conta",
+      "page": "cadastrar-conta",
+      "layout": "main"
+    }
+  ]
+}

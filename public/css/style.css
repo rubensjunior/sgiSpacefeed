@@ -1,0 +1,15 @@
+.bg-sidebar{
+    background-image: url(../assets/images/bg5-dark.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.form-control{
+    min-height: 48px;
+    background-color: #f9f9f9;
+    border: none;
+}
+.btn{
+    min-height: 48px;
+}
