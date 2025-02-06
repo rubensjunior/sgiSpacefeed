@@ -160,31 +160,27 @@
       {
         "type": "text",
         "fieldName": "obsEndereco",
-        "options": {
-          "rules": {
-            "core:required": {
-              "param": "",
-              "message": "Este é um campo obrigatório."
-            }
-          }
-        },
         "name": "obsEndereco"
       },
       {
         "type": "text",
-        "name": "telefone_usuario"
+        "name": "celular_empresa"
       },
       {
-        "type": "datetime",
-        "name": "criado_em"
+        "type": "text",
+        "name": "razao_social"
       },
       {
-        "type": "datetime",
-        "name": "atualizado_em"
+        "type": "text",
+        "name": "nome_polo"
       },
       {
-        "type": "number",
-        "name": "empresa_selecionada"
+        "type": "text",
+        "name": "cep_polo"
+      },
+      {
+        "type": "text",
+        "name": "obs_endereco"
       }
     ]
   },
@@ -204,7 +200,7 @@
         "module": "dbupdater",
         "action": "insert",
         "options": {
-          "connection": "spacefeed",
+          "connection": "sfweb",
           "sql": {
             "type": "insert",
             "values": [
@@ -246,32 +242,38 @@
               },
               {
                 "table": "empresas",
-                "column": "nome_polo",
-                "type": "text",
-                "value": "{{$_POST.nomePolo}}"
-              },
-              {
-                "table": "empresas",
-                "column": "nome_fantasia",
-                "type": "text",
-                "value": "{{$_POST.nomeFantasia}}"
-              },
-              {
-                "table": "empresas",
                 "column": "celular_empresa",
                 "type": "text",
                 "value": "{{$_POST.numCel}}"
               },
               {
                 "table": "empresas",
-                "column": "cep_empresa",
+                "column": "nome_polo",
+                "type": "text",
+                "value": "{{$_POST.nomePolo}}"
+              },
+              {
+                "table": "empresas",
+                "column": "cep_polo",
                 "type": "text",
                 "value": "{{$_POST.cepPolo}}"
+              },
+              {
+                "table": "empresas",
+                "column": "obs_endereco",
+                "type": "text",
+                "value": "{{$_POST.obsEndereco}}"
+              },
+              {
+                "table": "empresas",
+                "column": "nome_fantasia",
+                "type": "text",
+                "value": "{{$_POST.nomeFantasia}}"
               }
             ],
             "table": "empresas",
             "returning": "id_empresa",
-            "query": "insert into \"empresas\" (\"atualizado_em\", \"celular_empresa\", \"cep_empresa\", \"cnpj_empresa\", \"criado_em\", \"endereco_empresa\", \"nome_empresa\", \"nome_fantasia\", \"nome_polo\", \"telefone_empresa\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) returning \"id_empresa\"",
+            "query": "insert into \"empresas\" (\"atualizado_em\", \"celular_empresa\", \"cep_polo\", \"cnpj_empresa\", \"criado_em\", \"endereco_empresa\", \"nome_empresa\", \"nome_fantasia\", \"nome_polo\", \"obs_endereco\", \"telefone_empresa\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) returning \"id_empresa\"",
             "params": [
               {
                 "name": ":P1",
@@ -312,25 +314,31 @@
               {
                 "name": ":P7",
                 "type": "expression",
-                "value": "{{$_POST.nomePolo}}",
+                "value": "{{$_POST.numCel}}",
                 "test": ""
               },
               {
                 "name": ":P8",
                 "type": "expression",
-                "value": "{{$_POST.nomeFantasia}}",
+                "value": "{{$_POST.nomePolo}}",
                 "test": ""
               },
               {
                 "name": ":P9",
                 "type": "expression",
-                "value": "{{$_POST.numCel}}",
+                "value": "{{$_POST.cepPolo}}",
                 "test": ""
               },
               {
                 "name": ":P10",
                 "type": "expression",
-                "value": "{{$_POST.cepPolo}}",
+                "value": "{{$_POST.obsEndereco}}",
+                "test": ""
+              },
+              {
+                "name": ":P11",
+                "type": "expression",
+                "value": "{{$_POST.nomeFantasia}}",
                 "test": ""
               }
             ]
@@ -352,7 +360,7 @@
         "module": "dbupdater",
         "action": "insert",
         "options": {
-          "connection": "spacefeed",
+          "connection": "sfweb",
           "sql": {
             "type": "insert",
             "values": [
@@ -360,42 +368,48 @@
                 "table": "usuarios",
                 "column": "nome_usuario",
                 "type": "text",
-                "value": "{{$_POST.nomeUsuario}}"
+                "value": "{{$_POST.nomeUsuario}}",
+                "recid": 1
               },
               {
                 "table": "usuarios",
                 "column": "email_usuario",
                 "type": "text",
-                "value": "{{$_POST.emailUsuario}}"
+                "value": "{{$_POST.emailUsuario}}",
+                "recid": 2
               },
               {
                 "table": "usuarios",
                 "column": "senha_usuario",
                 "type": "text",
-                "value": "{{hash}}"
+                "value": "{{hash}}",
+                "recid": 3
               },
               {
                 "table": "usuarios",
                 "column": "criado_em",
                 "type": "datetime",
-                "value": "{{NOW}}"
+                "value": "{{NOW}}",
+                "recid": 4
               },
               {
                 "table": "usuarios",
                 "column": "atualizado_em",
                 "type": "datetime",
-                "value": "{{NOW}}"
+                "value": "{{NOW}}",
+                "recid": 5
               },
               {
                 "table": "usuarios",
                 "column": "empresa_selecionada",
                 "type": "number",
-                "value": "{{insertEmpresa.identity}}"
+                "value": "{{insertEmpresa.identity}}",
+                "recid": 6
               }
             ],
             "table": "usuarios",
             "returning": "id_usuario",
-            "query": "insert into \"usuarios\" (\"atualizado_em\", \"criado_em\", \"email_usuario\", \"empresa_selecionada\", \"nome_usuario\", \"senha_usuario\") values (?, ?, ?, ?, ?, ?) returning \"id_usuario\"",
+            "query": "insert into \"usuarios\" (\"atualizado_em\", \"criado_em\", \"email_usuario\", \"empresa_selecionada\", \"nome_usuario\", \"senha_usuario\") values (?, ?, ?, ?, ?, ?)",
             "params": [
               {
                 "name": ":P1",
@@ -452,7 +466,7 @@
         "module": "dbupdater",
         "action": "insert",
         "options": {
-          "connection": "spacefeed",
+          "connection": "sfweb",
           "sql": {
             "type": "insert",
             "values": [
