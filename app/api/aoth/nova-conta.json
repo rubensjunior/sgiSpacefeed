@@ -75,6 +75,29 @@
         "outputType": "text"
       },
       {
+        "name": "validateEmail",
+        "module": "validator",
+        "action": "validate",
+        "options": {
+          "data": [
+            {
+              "name": "email",
+              "value": "{{$_POST.emailUsuario}}",
+              "rules": {
+                "db:notexists": {
+                  "param": {
+                    "connection": "spacefeedBD",
+                    "table": "usuarios",
+                    "column": "email_usuario"
+                  },
+                  "message": "E-mail já cadastrado. Você já possui uma conta conosco."
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
         "name": "insertUsuario",
         "module": "dbupdater",
         "action": "insert",

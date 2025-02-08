@@ -2,5 +2,9 @@
   "cadastrar-conta.ejs": {
     "layoutPage": "main",
     "description": ""
+  },
+  "cadastrar-empresa.ejs": {
+    "layoutPage": "main",
+    "description": ""
   }
 }
