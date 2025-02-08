@@ -1,0 +1,24 @@
+{
+  "name": "securityAoth",
+  "module": "auth",
+  "action": "provider",
+  "options": {
+    "secret": "989mP7z4V2aPYaM",
+    "provider": "Database",
+    "connection": "spacefeedBD",
+    "passwordVerify": true,
+    "users": {
+      "table": "usuarios",
+      "identity": "id_usuario",
+      "username": "email_usuario",
+      "password": "senha_usuario"
+    },
+    "permissions": {}
+  },
+  "meta": [
+    {
+      "name": "identity",
+      "type": "text"
+    }
+  ]
+}
