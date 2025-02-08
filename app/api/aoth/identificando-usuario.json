@@ -1,0 +1,96 @@
+{
+  "name": "queryIdentificarUsuario",
+  "module": "dbconnector",
+  "action": "single",
+  "options": {
+    "connection": "spacefeedBD",
+    "sql": {
+      "type": "select",
+      "columns": [
+        {
+          "table": "usuarios",
+          "column": "*"
+        }
+      ],
+      "params": [
+        {
+          "operator": "equal",
+          "type": "expression",
+          "name": ":P1",
+          "value": "{{identity}}",
+          "test": ""
+        }
+      ],
+      "table": {
+        "name": "usuarios"
+      },
+      "primary": "id_usuario",
+      "joins": [],
+      "wheres": {
+        "condition": "AND",
+        "rules": [
+          {
+            "id": "usuarios.id_usuario",
+            "field": "usuarios.id_usuario",
+            "type": "double",
+            "operator": "equal",
+            "value": "{{identity}}",
+            "data": {
+              "table": "usuarios",
+              "column": "id_usuario",
+              "type": "number",
+              "columnObj": {
+                "type": "increments",
+                "default": "",
+                "primary": true,
+                "unique": true,
+                "nullable": false,
+                "name": "id_usuario"
+              }
+            },
+            "operation": "="
+          }
+        ],
+        "conditional": null,
+        "valid": true
+      },
+      "query": "select * from \"usuarios\" where \"usuarios\".\"id_usuario\" = ?"
+    }
+  },
+  "output": true,
+  "meta": [
+    {
+      "type": "number",
+      "name": "id_usuario"
+    },
+    {
+      "type": "text",
+      "name": "nome_usuario"
+    },
+    {
+      "type": "text",
+      "name": "email_usuario"
+    },
+    {
+      "type": "text",
+      "name": "senha_usuario"
+    },
+    {
+      "type": "number",
+      "name": "empresa_selecionada"
+    },
+    {
+      "type": "text",
+      "name": "status_usuario"
+    },
+    {
+      "type": "datetime",
+      "name": "criado_em"
+    },
+    {
+      "type": "datetime",
+      "name": "atualizado_em"
+    }
+  ],
+  "outputType": "object"
+}
