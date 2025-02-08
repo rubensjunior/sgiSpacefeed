@@ -2,8 +2,9 @@
 <dmx-value id="visibilidade" dmx-bind:value="0"></dmx-value>
 <div class="container-fluid vh-100">
     <div class="row h-100">
-        <div class="col-12 col-sm-6 col-md-6 bg-sidebar"></div>
-        <div class="col-12 col-sm-6 col-md-6 py-5 align-self-start">
+        <div class="col bg-sidebar text-center col">
+        </div>
+        <div class="col py-5">
             <div class="row justify-content-center align-items-start">
                 <div class="col-10 align-self-start">
                     <h3 dmx-hide="visibilidade.value==3">Crie Sua Conta</h3>
@@ -11,57 +12,7 @@
 
                     <form id="cadastrarFormConta" is="dmx-serverconnect-form" method="post" action="/api/aoth/nova-conta" dmx-on:error="alertas.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response+'. Entre em contato com o suporte: suporte@spacefeed.app');cadastrarFormConta.reset();visibilidade.setValue(0)" dmx-on:success="cadastrarFormConta.reset();visibilidade.setValue(3)">
 
-                        <div class="d-flex flex-column" dmx-show="visibilidade.value==0">
-                            <div class="form-group mb-3"> <label for="razaoSocial" class="form-label">*Razão social</label>
-                                <input type="text" class="form-control" id="razaoSocial" name="razaoSocial" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
-                            </div>
-                            <div class="form-group mb-3"> <label for="nomeFantasia" class="form-label">*Nome Fantasia</label>
-                                <input type="text" class="form-control" id="nomeFantasia" name="nomeFantasia" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group mb-3"> <label for="nomePolo" class="form-label">*Nome do polo</label>
-                                        <input type="text" class="form-control" id="nomePolo" name="nomePolo" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group mb-3"> <label for="cnpjEmpresa" class="form-label">*CNPJ</label>
-                                        <input type="text" class="form-control" id="cnpjEmpresa" name="cnpjEmpresa" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group mb-3"> <label for="numCel" class="form-label">*Celular/Whatsapp</label>
-                                        <input type="text" class="form-control" id="numCel" name="numCel" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group mb-3"> <label for="numCel" class="form-label">Telefone</label>
-                                        <input type="text" class="form-control" id="numTel" name="numTel" aria-describedby="input1_help">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group mb-3 text-end">
-                                <button id="btn4" class="btn btn-primary" dmx-on:click="visibilidade.setValue(1)">Prosseguir</button>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-column" dmx-show="visibilidade.value==1">
-                            <div class="form-group mb-3"> <label for="enderecoPolo" class="form-label">*Endereço</label>
-                                <input type="text" class="form-control" id="enderecoPolo" name="enderecoPolo" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
-                            </div>
-                            <div class="form-group mb-3"> <label for="enderecoPolo" class="form-label">*CEP</label>
-                                <input type="text" class="form-control" id="cepPolo" name="cepPolo" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
-                            </div>
-                            <div class="form-group mb-3"> <label for="enderecoPolo" class="form-label">Observação</label>
-                                <textarea id="obsEndereco" class="form-control" name="obsEndereco"></textarea>
-                            </div>
-                            <div class="form-group mb-3 text-end"> <button id="btn3" class="btn btn-light me-2" dmx-on:click="visibilidade.setValue(0)">Voltar</button>
-                                <button id="btn5" class="btn btn-primary" dmx-on:click="visibilidade.setValue(2)">Prosseguir</button>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-column" dmx-show="visibilidade.value==2">
+                        <div class="d-flex flex-column">
                             <div class="form-group mb-3"> <label for="nomeUsuario" class="form-label">*Nome completo</label>
                                 <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
                             </div>
@@ -82,20 +33,9 @@
                             </div>
                             <div class="form-group mb-3"> <label for="input10" class="form-label">Ao clicar em <b>“Criar conta”</b>, você concorda com os <b>Termos de Uso</b> e<b> Política de Privacidade</b> da plataforma.</label>
                             </div>
-                            <div class="form-group mb-3 text-end"> <button id="btn1" class="btn btn-light me-2" dmx-on:click="visibilidade.setValue(1)">Voltar</button>
+                            <div class="form-group mb-3 text-end">
                                 <button id="btn6" class="btn btn-primary fw-bold" type="submit">Criar conta</button>
                             </div>
-                        </div>
-                        <div class="d-flex flex-column" dmx-show="visibilidade.value==3">
-                            <h3 class="mb-3">Sua conta foi criada!</h3>
-                            <p>Agora você tem acesso a todas as ferramentas necessárias para organizar e otimizar suas operações.</p>
-                            <p>O que fazer agora?
-                            <p>✅ Acesse seu painel administrativo e explore os recursos disponíveis.</p>
-                            <p>✅ Complete as informações do seu polo/unidade para personalizar sua experiência.</p>
-                            <p>✅ Convide sua equipe para começar a utilizar o sistema juntos.</p>
-                            <p>Se precisar de ajuda, nosso suporte está disponível para garantir que você tenha a melhor experiência.</p>
-                            <p>📩 Dúvidas? Entre em contato com nosso suporte: suporte@spacefeed.app</p>
-                            </p>
                         </div>
                     </form>
                 </div>

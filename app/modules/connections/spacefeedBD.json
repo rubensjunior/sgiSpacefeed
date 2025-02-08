@@ -1,0 +1,17 @@
+{
+  "name": "spacefeedBD",
+  "module": "dbconnector",
+  "action": "connect",
+  "options": {
+    "client": "postgres",
+    "connection": {
+      "host": "pro114.dnspro.com.br",
+      "port": 5432,
+      "user": "rubensbe_master",
+      "password": "@Baki025",
+      "database": "rubensbe_spacefeed"
+    },
+    "tz": "utc"
+  },
+  "fileName": "spacefeedBD.json"
+}
