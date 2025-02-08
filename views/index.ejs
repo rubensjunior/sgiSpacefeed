@@ -1,2 +1,32 @@
-<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="index" appConnect="local" -->
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="index" appConnect="local" components="{dmxValidator:{}}" -->
+<div class="container-fluid vh-100">
+    <div class="row h-100 align-items-center">
+        <div class="col p-5">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-8 align-self-center">
+                    <img src="/assets/images/spacefeed-black.png" class="img-fluid mb-5" width="220">
+                    <form id="loginForm">
+                        <div class="form-group mb-3"> <label for="emailLogin" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="emailLogin" name="emailLogin" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório!" data-rule-email="" data-msg-email="Insira um e-mail válido!">
+                        </div>
+                        <div class="form-group mb-3"> <label for="senhaLogin" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="senhaLogin" name="senhaLogin" aria-describedby="input1_help1" required="" data-msg-required="Este é um campo obrigatório!">
+                        </div>
+                        <div class="form-group mb-3 text-end col">
+                            Clique aqui para recuperar sua senha.
+                        </div>
+                        <div class="form-group mb-3 text-center">
+                            <button id="btn1" class="btn btn-primary w-100" type="submit">Fazer login</button>
+                        </div>
+                        <div class="form-group mb-3 text-center">
+                            <label class="form-label col-form-label-sm">Ainda não tem uma conta? <b>Crie uma agora!</b></label>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col h-100 bg-sidebar"></div>
+    </div>
+</div>
 <meta name="ac:route" content="/">

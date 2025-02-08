@@ -11,7 +11,10 @@
       "password": "@Baki025",
       "database": "rubensbe_spacefeed"
     },
-    "tz": "utc"
+    "tz": "utc",
+    "meta": {}
   },
-  "fileName": "spacefeedBD.json"
+  "fileName": "spacefeedBD.json",
+  "actionFilePath": "file:///C:/Users/Rubens%20Bentes/Documents/Projetos/sgiSpacefeed/app/modules/connections/spacefeedBD.json",
+  "serverType": "node"
 }

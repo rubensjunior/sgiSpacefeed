@@ -15,9 +15,6 @@
     "tables": {
       "leads": {
         "db": {},
-        "sub": {
-          "leads_interacoes": "ref_id_lead"
-        },
         "columns": {
           "id_lead": {
             "db": {
@@ -109,6 +106,9 @@
               "nullable": true
             }
           }
+        },
+        "sub": {
+          "leads_interacoes": "ref_id_lead"
         }
       },
       "financeiro_transacoes": {
@@ -238,9 +238,6 @@
       },
       "departamentos": {
         "db": {},
-        "refs": {
-          "funcoes": "ref_id_departamento"
-        },
         "columns": {
           "id_departamento": {
             "db": {
@@ -260,6 +257,9 @@
               "nullable": false
             }
           }
+        },
+        "refs": {
+          "funcoes": "ref_id_departamento"
         }
       },
       "usuarios": {
@@ -357,7 +357,6 @@
       },
       "leads_interacoes": {
         "db": {},
-        "parent": "leads",
         "columns": {
           "id_interacao": {
             "db": {
@@ -420,7 +419,8 @@
               "nullable": true
             }
           }
-        }
+        },
+        "parent": "leads"
       },
       "projetos": {
         "db": {},
@@ -633,9 +633,6 @@
       },
       "funcoes": {
         "db": {},
-        "sub": {
-          "funcoes_usuarios": "ref_id_funcao"
-        },
         "columns": {
           "id_funcao": {
             "db": {
@@ -684,6 +681,9 @@
               "nullable": true
             }
           }
+        },
+        "sub": {
+          "funcoes_usuarios": "ref_id_funcao"
         }
       },
       "funcoes_usuarios": {
@@ -692,15 +692,6 @@
       },
       "empresas": {
         "db": {},
-        "refs": {
-          "leads": "ref_id_empresa",
-          "financeiro_transacoes": "ref_id_empresa",
-          "usuarios_empresas": "ref_id_empresa",
-          "usuarios": "empresa_selecionada",
-          "projetos": "ref_id_empresa",
-          "tarefas": "ref_id_empresa",
-          "funcoes_usuarios": "ref_id_empresa"
-        },
         "columns": {
           "id_empresa": {
             "db": {
@@ -818,6 +809,15 @@
               "nullable": true
             }
           }
+        },
+        "refs": {
+          "leads": "ref_id_empresa",
+          "financeiro_transacoes": "ref_id_empresa",
+          "usuarios_empresas": "ref_id_empresa",
+          "usuarios": "empresa_selecionada",
+          "projetos": "ref_id_empresa",
+          "tarefas": "ref_id_empresa",
+          "funcoes_usuarios": "ref_id_empresa"
         }
       }
     },
