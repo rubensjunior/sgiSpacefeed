@@ -5,7 +5,7 @@
             <div class="row justify-content-center align-items-center">
                 <div class="col-8 align-self-center">
                     <img src="/assets/images/spacefeed-black.png" class="img-fluid mb-5" width="220">
-                    <form id="loginForm">
+                    <form id="loginForm" is="dmx-serverconnect-form" method="post" action="/api/aoth/login" credentials="true" dmx-on:error="alertas.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response+'. Entre em contato com o suporte pelo e-mail: suporte@spacefeed.app');loginForm.reset()" dmx-on:unauthorized="alertas.warning('Login ou senha errados!');loginForm.reset()" dmx-on:success="alertas.success('Login efetuado com sucesso!');loginForm.reset()" dmx-on:forbidden="alertas.warning('Conta não encontrada, entre em contato com o administrador do seu polo!');loginForm.reset()">
                         <div class="form-group mb-3"> <label for="emailLogin" class="form-label">E-mail</label>
                             <input type="email" class="form-control" id="emailLogin" name="emailLogin" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório!" data-rule-email="" data-msg-email="Insira um e-mail válido!">
                         </div>

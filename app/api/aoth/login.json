@@ -1,3 +1,55 @@
 {
-  "exec": {}
+  "meta": {
+    "options": {
+      "linkedFile": "/views/index.ejs",
+      "linkedForm": "loginForm"
+    },
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "emailLogin",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório!"
+            },
+            "core:email": {
+              "param": "",
+              "message": "Insira um e-mail válido!"
+            }
+          }
+        },
+        "name": "emailLogin"
+      },
+      {
+        "type": "text",
+        "fieldName": "senhaLogin",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório!"
+            }
+          }
+        },
+        "name": "senhaLogin"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "identity",
+      "module": "auth",
+      "action": "login",
+      "options": {
+        "provider": "securityAoth",
+        "remember": 1,
+        "username": "{{$_POST.emailLogin}}",
+        "password": "{{$_POST.senhaLogin}}"
+      },
+      "output": true,
+      "meta": []
+    }
+  }
 }
