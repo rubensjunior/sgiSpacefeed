@@ -1,96 +1,222 @@
-{
-  "name": "queryIdentificarUsuario",
-  "module": "dbconnector",
-  "action": "single",
-  "options": {
-    "connection": "spacefeedBD",
-    "sql": {
-      "type": "select",
-      "columns": [
-        {
-          "table": "usuarios",
-          "column": "*"
-        }
-      ],
-      "params": [
-        {
-          "operator": "equal",
-          "type": "expression",
-          "name": ":P1",
-          "value": "{{identity}}",
-          "test": ""
-        }
-      ],
-      "table": {
-        "name": "usuarios"
-      },
-      "primary": "id_usuario",
-      "joins": [],
-      "wheres": {
-        "condition": "AND",
-        "rules": [
+[
+  {
+    "name": "queryIdentificarUsuario",
+    "module": "dbconnector",
+    "action": "single",
+    "options": {
+      "connection": "spacefeedBD",
+      "sql": {
+        "type": "select",
+        "columns": [
           {
-            "id": "usuarios.id_usuario",
-            "field": "usuarios.id_usuario",
-            "type": "double",
-            "operator": "equal",
-            "value": "{{identity}}",
-            "data": {
-              "table": "usuarios",
-              "column": "id_usuario",
-              "type": "number",
-              "columnObj": {
-                "type": "increments",
-                "default": "",
-                "primary": true,
-                "unique": true,
-                "nullable": false,
-                "name": "id_usuario"
-              }
-            },
-            "operation": "="
+            "table": "usuarios",
+            "column": "*"
           }
         ],
-        "conditional": null,
-        "valid": true
+        "params": [
+          {
+            "operator": "equal",
+            "type": "expression",
+            "name": ":P1",
+            "value": "{{identity}}",
+            "test": ""
+          }
+        ],
+        "table": {
+          "name": "usuarios"
+        },
+        "primary": "id_usuario",
+        "joins": [],
+        "wheres": {
+          "condition": "AND",
+          "rules": [
+            {
+              "id": "usuarios.id_usuario",
+              "field": "usuarios.id_usuario",
+              "type": "double",
+              "operator": "equal",
+              "value": "{{identity}}",
+              "data": {
+                "table": "usuarios",
+                "column": "id_usuario",
+                "type": "number",
+                "columnObj": {
+                  "type": "increments",
+                  "default": "",
+                  "primary": true,
+                  "unique": true,
+                  "nullable": false,
+                  "name": "id_usuario"
+                }
+              },
+              "operation": "="
+            }
+          ],
+          "conditional": null,
+          "valid": true
+        },
+        "query": "select * from \"usuarios\" where \"usuarios\".\"id_usuario\" = ?"
+      }
+    },
+    "output": true,
+    "meta": [
+      {
+        "type": "number",
+        "name": "id_usuario"
       },
-      "query": "select * from \"usuarios\" where \"usuarios\".\"id_usuario\" = ?"
-    }
+      {
+        "type": "text",
+        "name": "nome_usuario"
+      },
+      {
+        "type": "text",
+        "name": "email_usuario"
+      },
+      {
+        "type": "text",
+        "name": "senha_usuario"
+      },
+      {
+        "type": "number",
+        "name": "empresa_selecionada"
+      },
+      {
+        "type": "text",
+        "name": "status_usuario"
+      },
+      {
+        "type": "datetime",
+        "name": "criado_em"
+      },
+      {
+        "type": "datetime",
+        "name": "atualizado_em"
+      }
+    ],
+    "outputType": "object"
   },
-  "output": true,
-  "meta": [
-    {
-      "type": "number",
-      "name": "id_usuario"
+  {
+    "name": "queryEmpresaSelecionadaDados",
+    "module": "dbconnector",
+    "action": "single",
+    "options": {
+      "connection": "spacefeedBD",
+      "sql": {
+        "type": "select",
+        "columns": [
+          {
+            "table": "empresas",
+            "column": "*"
+          }
+        ],
+        "params": [
+          {
+            "operator": "equal",
+            "type": "expression",
+            "name": ":P1",
+            "value": "{{queryIdentificarUsuario.empresa_selecionada}}",
+            "test": ""
+          }
+        ],
+        "table": {
+          "name": "empresas"
+        },
+        "primary": "id_empresa",
+        "joins": [],
+        "wheres": {
+          "condition": "AND",
+          "rules": [
+            {
+              "id": "empresas.id_empresa",
+              "field": "empresas.id_empresa",
+              "type": "double",
+              "operator": "equal",
+              "value": "{{queryIdentificarUsuario.empresa_selecionada}}",
+              "data": {
+                "table": "empresas",
+                "column": "id_empresa",
+                "type": "number",
+                "columnObj": {
+                  "type": "increments",
+                  "default": "",
+                  "primary": true,
+                  "unique": true,
+                  "nullable": false,
+                  "name": "id_empresa"
+                }
+              },
+              "operation": "="
+            }
+          ],
+          "conditional": null,
+          "valid": true
+        },
+        "query": "select * from \"empresas\" where \"empresas\".\"id_empresa\" = ?"
+      }
     },
-    {
-      "type": "text",
-      "name": "nome_usuario"
-    },
-    {
-      "type": "text",
-      "name": "email_usuario"
-    },
-    {
-      "type": "text",
-      "name": "senha_usuario"
-    },
-    {
-      "type": "number",
-      "name": "empresa_selecionada"
-    },
-    {
-      "type": "text",
-      "name": "status_usuario"
-    },
-    {
-      "type": "datetime",
-      "name": "criado_em"
-    },
-    {
-      "type": "datetime",
-      "name": "atualizado_em"
-    }
-  ],
-  "outputType": "object"
-}
+    "output": true,
+    "meta": [
+      {
+        "type": "number",
+        "name": "id_empresa"
+      },
+      {
+        "type": "text",
+        "name": "nome_empresa"
+      },
+      {
+        "type": "text",
+        "name": "nome_fantasia"
+      },
+      {
+        "type": "text",
+        "name": "cnpj_empresa"
+      },
+      {
+        "type": "text",
+        "name": "telefone_empresa"
+      },
+      {
+        "type": "text",
+        "name": "celular_empresa"
+      },
+      {
+        "type": "text",
+        "name": "endereco_empresa"
+      },
+      {
+        "type": "text",
+        "name": "nome_polo"
+      },
+      {
+        "type": "text",
+        "name": "cep_polo"
+      },
+      {
+        "type": "text",
+        "name": "obs_endereco"
+      },
+      {
+        "type": "text",
+        "name": "status_empresa"
+      },
+      {
+        "type": "datetime",
+        "name": "criado_em"
+      },
+      {
+        "type": "datetime",
+        "name": "atualizado_em"
+      },
+      {
+        "type": "text",
+        "name": "Cidade"
+      },
+      {
+        "type": "text",
+        "name": "Estado"
+      }
+    ],
+    "outputType": "object"
+  }
+]

@@ -18,9 +18,13 @@
   <script src="/dmxAppConnect/dmxBootstrap5Offcanvas/dmxBootstrap5Offcanvas.js" defer></script>
   <link rel="stylesheet" href="/dmxAppConnect/dmxValidator/dmxValidator.css" />
   <script src="/dmxAppConnect/dmxValidator/dmxValidator.js" defer></script>
+  <link rel="stylesheet" href="/dmxAppConnect/dmxBootstrap5TableGenerator/dmxBootstrap5TableGenerator.css" />
+  <script src="/dmxAppConnect/dmxFormatter/dmxFormatter.js" defer></script>
 </head>
 
 <body is="dmx-app" id="backoffice" class="bg-cinza">
+  <dmx-serverconnect id="selecionarEmpresa" noload="true" url="/api/empresa/empresa-selecionada" dmx-param:idempresaselecionada=""></dmx-serverconnect>
+  <dmx-serverconnect id="listagemEmpresas" url="/api/empresa/listar-empresas"></dmx-serverconnect>
   <div is="dmx-browser" id="navegacao"></div>
   <dmx-notifications id="alertas"></dmx-notifications>
   <dmx-serverconnect id="logoutUsuario" noload="true" url="/api/aoth/logout"></dmx-serverconnect>
@@ -32,24 +36,17 @@
           <div class="d-flex align-items-xxl-center flex-row">
             <img src="/assets/images/Ícone 1_fundo branco.png" width="64" height="64" class="me-3">
             <div class="d-flex flex-column justify-content-center">
-              <h5 class="m-0">Bem-vindo</h5>
-              <p class="m-0 small text-secondary">{{usuarioLogado.data.queryIdentificarUsuario.nome_usuario}}</p>
+              <h5 class="m-0">Bem-vindo, {{usuarioLogado.data.queryIdentificarUsuario.nome_usuario}}</h5>
+              <p class="m-0 small text-secondary" dmx-show="!usuarioLogado.data.queryIdentificarUsuario.empresa_selecionada.isEmpty()">{{usuarioLogado.data.queryEmpresaSelecionadaDados.nome_polo}}</p>
+              <p class="m-0 small text-secondary" dmx-show="usuarioLogado.data.queryIdentificarUsuario.empresa_selecionada.isEmpty()">Escolha uma empresa ou crie uma caso não exista.</p>
             </div>
 
           </div>
           <div class="d-flex justify-content-end">
-            <select id="select1" class="form-select me-2 border border-white">
-              <option value="1">Option One</option>
-              <option value="2">Option Two</option>
-              <option value="3">Option Three</option>
+            <select id="selectEmpresa" class="form-select me-2 border-0" name="selectEmpresa" dmx-bind:options="listagemEmpresas.data.queryEmpresas" optiontext="nome_polo" optionvalue="id_empresa">
+              <option value="">Selecione o polo</option>
             </select>
-            <div class="dropdown">
-              <div class="dropdown-menu" aria-labelledby="dropdown1">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </div><button id="btn1" class="btn btn-sm btn-success">Selecionar</button>
+            <button id="btn1" class="btn btn-sm btn-success" dmx-on:click="selecionarEmpresa.load({idempresaselecionada: selectEmpresa.selectedValue});navegacao.reload();usuarioLogado.load({})">Selecionar</button>
             <button id="btn7" class="btn ms-3 btn-light btn-sm" dmx-on:click="logoutUsuario.load({},true);navegacao.goto('/')">Sair</button>
           </div>
         </div>
@@ -62,7 +59,7 @@
       <div class="col-12 col-md-1 col-xl-1 text-center py-3">
         <div class="d-flex flex-column align-items-center justify-content-center">
           <div class="d-flex flex-column justify-content-center align-items-center py-3 w-100 menu-container"><img src="/assets/duotune/gen001.png" class="img-fluid" width="24"><small class="text-decoration-none block text-menu">Home</small></div>
-          <div class="d-flex flex-column justify-content-center align-items-center py-3 w-100 menu-container"><img src="/assets/duotune/com006.png"><small class="text-decoration-none block text-menu">Colaborador</small></div>
+          <div class="d-flex flex-column justify-content-center align-items-center py-3 w-100 menu-container" dmx-on:click="navegacao.goto('/b/cadastrar-polo')"><img src="/assets/duotune/com006.png"><small class="text-decoration-none block text-menu">Colaborador</small></div>
           <div class="d-flex flex-column justify-content-center align-items-center py-3 w-100 menu-container"><img src="/assets/duotune/lay006.png"><small class="text-decoration-none block text-menu">Projetos</small></div>
           <div class="d-flex flex-column justify-content-center align-items-center py-3 w-100 menu-container"><img src="/assets/duotune/lay010.png"><small class="text-decoration-none block text-menu">Tarefas</small></div>
           <div class="d-flex flex-column justify-content-center align-items-center py-3 w-100 menu-container"><img src="/assets/duotune/com005.png"><small class="text-decoration-none block text-menu">Leads</small></div>

@@ -17,7 +17,7 @@
       "layout": "backoffice"
     },
     {
-      "path": "/backoffice/cadastrar-polo",
+      "path": "/b/cadastrar-polo",
       "page": "backoffice/cadastrar-polo",
       "layout": "backoffice"
     }

@@ -1,0 +1,183 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "queryEmpresas",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "spacefeedBD",
+        "sql": {
+          "type": "select",
+          "columns": [
+            {
+              "table": "usuarios_empresas",
+              "column": "ref_id_usuario"
+            },
+            {
+              "table": "usuarios_empresas",
+              "column": "ref_id_empresa",
+              "aggregate": ""
+            },
+            {
+              "table": "empresas",
+              "column": "*"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{identity}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "usuarios_empresas"
+          },
+          "joins": [
+            {
+              "table": "empresas",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "empresas",
+                    "column": "id_empresa",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "usuarios_empresas",
+                      "column": "ref_id_empresa"
+                    }
+                  }
+                ]
+              },
+              "primary": "id_empresa"
+            }
+          ],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "usuarios_empresas.ref_id_usuario",
+                "field": "usuarios_empresas.ref_id_usuario",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{identity}}",
+                "data": {
+                  "table": "usuarios_empresas",
+                  "column": "ref_id_usuario",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": false,
+                    "references": "id_usuario",
+                    "inTable": "usuarios",
+                    "referenceType": "integer",
+                    "onUpdate": "NO ACTION",
+                    "onDelete": "CASCADE",
+                    "name": "ref_id_usuario"
+                  }
+                },
+                "operation": "=",
+                "table": "usuarios_empresas"
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select \"usuarios_empresas\".\"ref_id_usuario\", \"usuarios_empresas\".\"ref_id_empresa\", \"empresas\".* from \"usuarios_empresas\" inner join \"empresas\" on \"empresas\".\"id_empresa\" = \"usuarios_empresas\".\"ref_id_empresa\" where \"usuarios_empresas\".\"ref_id_usuario\" = ?"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "ref_id_usuario"
+        },
+        {
+          "type": "number",
+          "name": "ref_id_empresa"
+        },
+        {
+          "type": "number",
+          "name": "id_empresa"
+        },
+        {
+          "type": "text",
+          "name": "nome_empresa"
+        },
+        {
+          "type": "text",
+          "name": "nome_fantasia"
+        },
+        {
+          "type": "text",
+          "name": "cnpj_empresa"
+        },
+        {
+          "type": "text",
+          "name": "telefone_empresa"
+        },
+        {
+          "type": "text",
+          "name": "celular_empresa"
+        },
+        {
+          "type": "text",
+          "name": "endereco_empresa"
+        },
+        {
+          "type": "text",
+          "name": "nome_polo"
+        },
+        {
+          "type": "text",
+          "name": "cep_polo"
+        },
+        {
+          "type": "text",
+          "name": "obs_endereco"
+        },
+        {
+          "type": "text",
+          "name": "status_empresa"
+        },
+        {
+          "type": "datetime",
+          "name": "criado_em"
+        },
+        {
+          "type": "datetime",
+          "name": "atualizado_em"
+        },
+        {
+          "type": "text",
+          "name": "Cidade"
+        },
+        {
+          "type": "text",
+          "name": "Estado"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

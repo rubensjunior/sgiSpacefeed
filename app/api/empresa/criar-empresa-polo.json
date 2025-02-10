@@ -165,7 +165,8 @@
               }
             }
           ]
-        }
+        },
+        "output": true
       },
       {
         "name": "insertEmpresaPolo",
@@ -341,6 +342,57 @@
                 "name": ":P13",
                 "type": "expression",
                 "value": "{{$_POST.estadoEmpresa}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "name": "insertEmpresaUsuario",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "spacefeedBD",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "usuarios_empresas",
+                "column": "ref_id_usuario",
+                "type": "number",
+                "value": "{{identity}}"
+              },
+              {
+                "table": "usuarios_empresas",
+                "column": "ref_id_empresa",
+                "type": "number",
+                "value": "{{insertEmpresaPolo.identity}}"
+              }
+            ],
+            "table": "usuarios_empresas",
+            "query": "insert into \"usuarios_empresas\" (\"ref_id_empresa\", \"ref_id_usuario\") values (?, ?)",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{identity}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{insertEmpresaPolo.identity}}",
                 "test": ""
               }
             ]

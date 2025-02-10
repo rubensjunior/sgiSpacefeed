@@ -12,6 +12,9 @@
     background-color: #f9f9f9;
     border: none;
 }
+.cursor{
+    cursor: pointer;
+}
 .btn{
     font-weight: 500;
 }
