@@ -1,228 +1,362 @@
 {
   "meta": {
+    "options": {
+      "linkedFile": "/views/backoffice/cadastrar-polo.ejs",
+      "linkedForm": "cadastrarFormEmpresa"
+    },
     "$_POST": [
       {
         "type": "text",
-        "name": "nome_empresa"
+        "fieldName": "razaoSocial",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "razaoSocial"
       },
       {
         "type": "text",
-        "name": "nome_fantasia"
+        "fieldName": "nomeFantasia",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "nomeFantasia"
       },
       {
         "type": "text",
-        "name": "cnpj_empresa"
+        "fieldName": "nomePolo",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "nomePolo"
       },
       {
         "type": "text",
-        "name": "telefone_empresa"
+        "fieldName": "cnpjEmpresa",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "cnpjEmpresa"
       },
       {
         "type": "text",
-        "name": "celular_empresa"
+        "fieldName": "whatsappEmpresa",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "whatsappEmpresa"
       },
       {
         "type": "text",
-        "name": "endereco_empresa"
+        "fieldName": "telefoneEmpresa",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "telefoneEmpresa"
       },
       {
         "type": "text",
-        "name": "nome_polo"
+        "fieldName": "enderecoEmpresa",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "enderecoEmpresa"
       },
       {
         "type": "text",
-        "name": "cep_polo"
+        "fieldName": "cepEmpresa",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "cepEmpresa"
       },
       {
         "type": "text",
-        "name": "obs_endereco"
+        "fieldName": "cidadeEmpresa",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "cidadeEmpresa"
       },
       {
         "type": "text",
-        "name": "status_empresa"
+        "fieldName": "estadoEmpresa",
+        "options": {
+          "rules": {
+            "core:required": {
+              "param": "",
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "estadoEmpresa"
       },
       {
-        "type": "datetime",
-        "name": "criado_em"
-      },
-      {
-        "type": "datetime",
-        "name": "atualizado_em"
+        "type": "text",
+        "fieldName": "obsEnderecoEmpresa",
+        "name": "obsEnderecoEmpresa"
       }
     ]
   },
   "exec": {
-    "steps": {
-      "name": "insertCadastrarEmpresaPolo",
-      "module": "dbupdater",
-      "action": "insert",
-      "options": {
-        "connection": "spacefeedBD",
-        "sql": {
-          "type": "insert",
-          "values": [
+    "steps": [
+      {
+        "name": "validateCNPJ",
+        "module": "validator",
+        "action": "validate",
+        "options": {
+          "data": [
             {
-              "table": "empresas",
-              "column": "nome_empresa",
-              "type": "text",
-              "value": "{{$_POST.nome_empresa}}"
-            },
-            {
-              "table": "empresas",
-              "column": "nome_fantasia",
-              "type": "text",
-              "value": "{{$_POST.nome_fantasia}}"
-            },
-            {
-              "table": "empresas",
-              "column": "cnpj_empresa",
-              "type": "text",
-              "value": "{{$_POST.cnpj_empresa}}"
-            },
-            {
-              "table": "empresas",
-              "column": "telefone_empresa",
-              "type": "text",
-              "value": "{{$_POST.telefone_empresa}}"
-            },
-            {
-              "table": "empresas",
-              "column": "celular_empresa",
-              "type": "text",
-              "value": "{{$_POST.celular_empresa}}"
-            },
-            {
-              "table": "empresas",
-              "column": "endereco_empresa",
-              "type": "text",
-              "value": "{{$_POST.endereco_empresa}}"
-            },
-            {
-              "table": "empresas",
-              "column": "nome_polo",
-              "type": "text",
-              "value": "{{$_POST.nome_polo}}"
-            },
-            {
-              "table": "empresas",
-              "column": "cep_polo",
-              "type": "text",
-              "value": "{{$_POST.cep_polo}}"
-            },
-            {
-              "table": "empresas",
-              "column": "obs_endereco",
-              "type": "text",
-              "value": "{{$_POST.obs_endereco}}"
-            },
-            {
-              "table": "empresas",
-              "column": "status_empresa",
-              "type": "text",
-              "value": "{{$_POST.status_empresa}}"
-            },
-            {
-              "table": "empresas",
-              "column": "criado_em",
-              "type": "datetime",
-              "value": "{{$_POST.criado_em}}"
-            },
-            {
-              "table": "empresas",
-              "column": "atualizado_em",
-              "type": "datetime",
-              "value": "{{$_POST.atualizado_em}}"
-            }
-          ],
-          "table": "empresas",
-          "returning": "id_empresa",
-          "query": "insert into \"empresas\" (\"atualizado_em\", \"celular_empresa\", \"cep_polo\", \"cnpj_empresa\", \"criado_em\", \"endereco_empresa\", \"nome_empresa\", \"nome_fantasia\", \"nome_polo\", \"obs_endereco\", \"status_empresa\", \"telefone_empresa\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-          "params": [
-            {
-              "name": ":P1",
-              "type": "expression",
-              "value": "{{$_POST.nome_empresa}}",
-              "test": ""
-            },
-            {
-              "name": ":P2",
-              "type": "expression",
-              "value": "{{$_POST.nome_fantasia}}",
-              "test": ""
-            },
-            {
-              "name": ":P3",
-              "type": "expression",
-              "value": "{{$_POST.cnpj_empresa}}",
-              "test": ""
-            },
-            {
-              "name": ":P4",
-              "type": "expression",
-              "value": "{{$_POST.telefone_empresa}}",
-              "test": ""
-            },
-            {
-              "name": ":P5",
-              "type": "expression",
-              "value": "{{$_POST.celular_empresa}}",
-              "test": ""
-            },
-            {
-              "name": ":P6",
-              "type": "expression",
-              "value": "{{$_POST.endereco_empresa}}",
-              "test": ""
-            },
-            {
-              "name": ":P7",
-              "type": "expression",
-              "value": "{{$_POST.nome_polo}}",
-              "test": ""
-            },
-            {
-              "name": ":P8",
-              "type": "expression",
-              "value": "{{$_POST.cep_polo}}",
-              "test": ""
-            },
-            {
-              "name": ":P9",
-              "type": "expression",
-              "value": "{{$_POST.obs_endereco}}",
-              "test": ""
-            },
-            {
-              "name": ":P10",
-              "type": "expression",
-              "value": "{{$_POST.status_empresa}}",
-              "test": ""
-            },
-            {
-              "name": ":P11",
-              "type": "expression",
-              "value": "{{$_POST.criado_em}}",
-              "test": ""
-            },
-            {
-              "name": ":P12",
-              "type": "expression",
-              "value": "{{$_POST.atualizado_em}}",
-              "test": ""
+              "name": "validate_1",
+              "value": "{{$_POST.cnpjEmpresa}}",
+              "rules": {
+                "db:notexists": {
+                  "param": {
+                    "connection": "spacefeedBD",
+                    "table": "empresas",
+                    "column": "cnpj_empresa"
+                  },
+                  "message": "Este CNPJ já está cadastrado!."
+                }
+              }
             }
           ]
         }
       },
-      "meta": [
-        {
-          "name": "identity",
-          "type": "text"
+      {
+        "name": "insertEmpresaPolo",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "spacefeedBD",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "empresas",
+                "column": "nome_empresa",
+                "type": "text",
+                "value": "{{$_POST.razaoSocial}}"
+              },
+              {
+                "table": "empresas",
+                "column": "nome_fantasia",
+                "type": "text",
+                "value": "{{$_POST.nomeFantasia}}"
+              },
+              {
+                "table": "empresas",
+                "column": "cnpj_empresa",
+                "type": "text",
+                "value": "{{$_POST.cnpjEmpresa}}"
+              },
+              {
+                "table": "empresas",
+                "column": "telefone_empresa",
+                "type": "text",
+                "value": "{{$_POST.telefoneEmpresa}}"
+              },
+              {
+                "table": "empresas",
+                "column": "celular_empresa",
+                "type": "text",
+                "value": "{{$_POST.whatsappEmpresa}}"
+              },
+              {
+                "table": "empresas",
+                "column": "endereco_empresa",
+                "type": "text",
+                "value": "{{$_POST.enderecoEmpresa}}"
+              },
+              {
+                "table": "empresas",
+                "column": "nome_polo",
+                "type": "text",
+                "value": "{{$_POST.nomePolo}}"
+              },
+              {
+                "table": "empresas",
+                "column": "cep_polo",
+                "type": "text",
+                "value": "{{$_POST.cepEmpresa}}"
+              },
+              {
+                "table": "empresas",
+                "column": "obs_endereco",
+                "type": "text",
+                "value": "{{$_POST.obsEnderecoEmpresa}}"
+              },
+              {
+                "table": "empresas",
+                "column": "status_empresa",
+                "type": "text",
+                "value": "Ativo"
+              },
+              {
+                "table": "empresas",
+                "column": "criado_em",
+                "type": "datetime",
+                "value": "{{NOW}}"
+              },
+              {
+                "table": "empresas",
+                "column": "atualizado_em",
+                "type": "datetime",
+                "value": "{{NOW}}"
+              },
+              {
+                "table": "empresas",
+                "column": "Cidade",
+                "type": "text",
+                "value": "{{$_POST.cidadeEmpresa}}"
+              },
+              {
+                "table": "empresas",
+                "column": "Estado",
+                "type": "text",
+                "value": "{{$_POST.estadoEmpresa}}"
+              }
+            ],
+            "table": "empresas",
+            "returning": "id_empresa",
+            "query": "insert into \"empresas\" (\"Cidade\", \"Estado\", \"atualizado_em\", \"celular_empresa\", \"cep_polo\", \"cnpj_empresa\", \"criado_em\", \"endereco_empresa\", \"nome_empresa\", \"nome_fantasia\", \"nome_polo\", \"obs_endereco\", \"status_empresa\", \"telefone_empresa\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) returning \"id_empresa\"",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.razaoSocial}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.nomeFantasia}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.cnpjEmpresa}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{$_POST.telefoneEmpresa}}",
+                "test": ""
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{$_POST.whatsappEmpresa}}",
+                "test": ""
+              },
+              {
+                "name": ":P6",
+                "type": "expression",
+                "value": "{{$_POST.enderecoEmpresa}}",
+                "test": ""
+              },
+              {
+                "name": ":P7",
+                "type": "expression",
+                "value": "{{$_POST.nomePolo}}",
+                "test": ""
+              },
+              {
+                "name": ":P8",
+                "type": "expression",
+                "value": "{{$_POST.cepEmpresa}}",
+                "test": ""
+              },
+              {
+                "name": ":P9",
+                "type": "expression",
+                "value": "{{$_POST.obsEnderecoEmpresa}}",
+                "test": ""
+              },
+              {
+                "name": ":P10",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              },
+              {
+                "name": ":P11",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              },
+              {
+                "name": ":P12",
+                "type": "expression",
+                "value": "{{$_POST.cidadeEmpresa}}",
+                "test": ""
+              },
+              {
+                "name": ":P13",
+                "type": "expression",
+                "value": "{{$_POST.estadoEmpresa}}",
+                "test": ""
+              }
+            ]
+          }
         },
-        {
-          "name": "affected",
-          "type": "number"
-        }
-      ]
-    }
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      }
+    ]
   }
 }

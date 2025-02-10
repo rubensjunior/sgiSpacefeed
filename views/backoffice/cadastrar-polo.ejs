@@ -1,80 +1,107 @@
-<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="cadastrarpolo" appConnect="local" bootstrap_icons="cdn" components="{dmxBootstrap5Offcanvas:{}}" -->
+<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="cadastrarpolo" appConnect="local" bootstrap_icons="cdn" components="{dmxBootstrap5Offcanvas:{},dmxValidator:{}}" -->
 <div class="offcanvas offcanvas-end w-50" id="cadatrarOffcanvasPolo" is="dmx-bs5-offcanvas" tabindex="-1" nokeyboard="true">
 
     <div class="offcanvas-header border-bottom border-light-subtle">
         <h5 class="offcanvas-title">Adicionar nova empresa</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" dmx-on:click="cadastrarFormEmpresa.reset()"></button>
     </div>
     <div class="offcanvas-body">
-        <form is="dmx-serverconnect-form" id="cadastrarFormEmpresa" method="post" action="/api/empresa/criar-empresa-polo" dmx-generator="bootstrap5" dmx-form-type="horizontal">
+        <form method="post" action="/api/empresa/criar-empresa-polo" dmx-generator="bootstrap5" dmx-form-type="horizontal" is="dmx-serverconnect-form" id="cadastrarFormEmpresa" dmx-on:error="alertas.danger('Ocorreu um erro: '+cadatrarOffcanvasPolo.cadastrarFormEmpresa.lastError.status+cadatrarOffcanvasPolo.cadastrarFormEmpresa.lastError.message+cadatrarOffcanvasPolo.cadastrarFormEmpresa.lastError.response+'. Entre em contato com o suporte.');cadastrarFormEmpresa.reset();cadatrarOffcanvasPolo.hide()" dmx-on:invalid="alertas.warning(cadatrarOffcanvasPolo.cadastrarFormEmpresa.lastError.response);cadastrarFormEmpresa.reset();cadatrarOffcanvasPolo.hide()" dmx-on:success="cadastrarFormEmpresa.reset();cadatrarOffcanvasPolo.hide();alertas.success('Empresa/polo cadastrado com sucesso!')">
             <div class="row">
                 <div class="col">
                     <div class="form-group mb-3"> <label for="razaoSocial" class="form-label">*Razão social</label>
-                        <input type="text" class="form-control" id="razaoSocial" name="razaoSocial" aria-describedby="input1_help">
+                        <input type="text" class="form-control" id="razaoSocial" name="razaoSocial" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group mb-3"> <label for="nomeFantasia" class="form-label">Nome fantasia</label>
-                        <input type="text" class="form-control" id="nomeFantasia" name="nomeFantasia" aria-describedby="input1_help">
+                        <input type="text" class="form-control" id="nomeFantasia" name="nomeFantasia" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="form-group mb-3"> <label for="nomePolo" class="form-label">*Nome do polo</label>
-                        <input type="text" class="form-control" id="nomePolo" name="nomePolo" aria-describedby="input1_help">
+                        <input type="text" class="form-control" id="nomePolo" name="nomePolo" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group mb-3"> <label for="nomePolo" class="form-label">*CNPJ</label>
-                        <input type="text" class="form-control" id="cnpjEmpresa" name="cnpjEmpresa" aria-describedby="input1_help">
+                        <input type="text" class="form-control" id="cnpjEmpresa" name="cnpjEmpresa" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="form-group mb-3"> <label for="whatsappEmpresa" class="form-label">*Celular/Whatsapp do polo</label>
-                        <input type="text" class="form-control" id="whatsappEmpresa" name="whatsappEmpresa" aria-describedby="input1_help">
+                        <input type="text" class="form-control" id="whatsappEmpresa" name="whatsappEmpresa" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group mb-3"> <label for="whatsappEmpresa" class="form-label">Telefone do polo</label>
-                        <input type="text" class="form-control" id="telefoneEmpresa" name="telefoneEmpresa" aria-describedby="input1_help">
+                        <input type="text" class="form-control" id="telefoneEmpresa" name="telefoneEmpresa" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="form-group mb-3"> <label for="enderecoEmpresa" class="form-label">*Endereço com número</label>
-                        <input type="text" class="form-control" id="enderecoEmpresa" name="enderecoEmpresa" aria-describedby="input1_help">
+                        <input type="text" class="form-control" id="enderecoEmpresa" name="enderecoEmpresa" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group mb-3"> <label for="enderecoEmpresa" class="form-label">*CEP</label>
-                        <input type="text" class="form-control" id="cepEmpresa" name="cepEmpresa" aria-describedby="input1_help">
+                        <input type="text" class="form-control" id="cepEmpresa" name="cepEmpresa" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="form-group mb-3"> <label for="cidadeEmpresa" class="form-label">*Cidade</label>
-                        <input type="text" class="form-control" id="cidadeEmpresa" name="cidadeEmpresa" aria-describedby="input1_help">
+                        <input type="text" class="form-control" id="cidadeEmpresa" name="cidadeEmpresa" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group mb-3"> <label for="cidadeEmpresa" class="form-label">*Estado</label>
-                        <input type="text" class="form-control" id="estadoEmpresa" name="estadoEmpresa" aria-describedby="input1_help">
+                        <select id="estadoEmpresa" class="form-select select-form" name="estadoEmpresa" required="" data-msg-required="Este é um campo obrigatório.">
+                            <option value="" disabled selected>Selecione um estado</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
                     </div>
                 </div>
             </div>
             <div class="form-group mb-3"> <label for="input2" class="form-label">Obs endereços</label>
                 <textarea id="obsEnderecoEmpresa" class="form-control" name="obsEnderecoEmpresa"></textarea>
             </div>
-
-
         </form>
     </div>
-    <div class="d-flex flex-row py-3 border-top border-light-subtle justify-content-center"><button id="btn5" class="btn btn-light btn-custom">Cancelar</button><button id="btn4" class="btn btn-primary ms-3 btn-custom">Cadastrar</button></div>
+    <div class="d-flex flex-row py-3 border-top border-light-subtle justify-content-center"><button id="btn5" class="btn btn-light btn-custom" dmx-on:click="cadatrarOffcanvasPolo.hide();cadastrarFormEmpresa.reset()">Cancelar</button><button id="btn4" class="btn btn-primary ms-3 btn-custom" dmx-on:click="cadastrarFormEmpresa.submit()">Cadastrar</button></div>
     <div class="offcanvas-footer">
     </div>
 </div>
@@ -98,11 +125,15 @@
         <h3 class="text-center">Crie Seu Primeiro Polo</h3>
         <p class="text-center">Adicione sua unidade para começar a gerir seus colaboradores e atividades.</p><button id="btn2" class="btn btn-custom btn-primary mb-3" data-bs-toggle="offcanvas" data-bs-target="#cadatrarOffcanvasPolo">Adicionar novo polo</button><img src="/assets/images/15.png" class="img-fluid" width="280">
     </div>
-
-
-
-
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
 
-
+<script>
+    $('#cepEmpresa').mask('00000-000');
+    $('#whatsappEmpresa').mask('(00) 0 0000-0000');
+    $('#telefoneEmpresa').mask('(00) 0000-0000');
+    $('#cnpjEmpresa').mask('00.000.000/0000-00');
+</script>
 <meta name="ac:route" content="/backoffice/cadastrar-polo">

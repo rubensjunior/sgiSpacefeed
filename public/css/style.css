@@ -7,7 +7,7 @@
 .bg-cinza{
     background-color: #f4f4f4;
 }
-.form-control{
+.form-control, .select-form{
     min-height: 48px;
     background-color: #f9f9f9;
     border: none;
