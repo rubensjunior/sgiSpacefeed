@@ -4,12 +4,137 @@
     background-position: center;
     background-size: cover;
 }
-
+.bg-cinza{
+    background-color: #f4f4f4;
+}
 .form-control{
     min-height: 48px;
     background-color: #f9f9f9;
     border: none;
 }
 .btn{
+    font-weight: 500;
+}
+.btn-custom{
     min-height: 48px;
+    }
+.text-menu{
+    font-size: 13px;
+    font-weight: 500;
+}
+/* Estilos gerais do menu */
+.menu-container {
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    cursor:pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 10px 15px;
+    border-radius: 5px;
+    -webkit-transition: background-color 0.3s ease-in-out, 
+                -webkit-transform 0.2s ease-in-out, 
+                -webkit-box-shadow 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, 
+                -webkit-transform 0.2s ease-in-out, 
+                -webkit-box-shadow 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, 
+                transform 0.2s ease-in-out, 
+                box-shadow 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, 
+                transform 0.2s ease-in-out, 
+                box-shadow 0.3s ease-in-out, 
+                -webkit-transform 0.2s ease-in-out, 
+                -webkit-box-shadow 0.3s ease-in-out;
+}
+
+/* Efeito de hover: leve destaque com sombra e mudança de cor */
+.menu-container:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Cinza suave */
+    -webkit-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    -webkit-transform: translateX(3px);
+            transform: translateX(3px); /* Pequeno deslocamento para a direita */
+}
+
+/* Efeito de clique (active): feedback ao pressionar */
+.menu-container:active {
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+    background-color: rgba(0, 0, 0, 0.07);
+}
+
+/* Destaque para o item ativo (selecionado) */
+.menu-container.active {
+    background-color: rgba(0, 0, 0, 0.07);
+    border-left: 4px solid #0d6efd; /* Borda azul para indicar seleção */
+}
+
+/* Ícones e textos com transição suave */
+.menu-container i, 
+.menu-container span {
+    -webkit-transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Mudança de cor e opacidade no hover */
+.menu-container:hover i, 
+.menu-container:hover span {
+    color: #0d6efd; /* Azul do Bootstrap */
+    opacity: 0.8;
+}
+
+/* Fundo do sidebar com um degradê sutil */
+.sidebar {
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f8f9fa));
+    background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+    padding: 15px;
+    border-right: 1px solid #e0e0e0; /* Linha de separação discreta */
+}
+/* Estiliza a barra de rolagem para navegadores baseados em WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 16px; /* Largura da barra de rolagem */
+    border-radius: 16px;
+}
+
+/* Estiliza a trilha (fundo da barra de rolagem) */
+::-webkit-scrollbar-track {
+    background: #ffffff; /* Fundo branco */
+    border-radius: 10px; /* Deixa a trilha arredondada */
+}
+
+/* Estiliza o "thumb" (a parte que se move da barra de rolagem) */
+::-webkit-scrollbar-thumb {
+    background: black; /* Cor azul */
+    border-radius: 16px; /* Arredondamento total */
+    border: 4px solid #ffffff; /* Adiciona um espaçamento visual entre a barra e a trilha */
+}
+
+/* Quando o usuário passa o mouse sobre a barra de rolagem */
+::-webkit-scrollbar-thumb:hover {
+    background: black; /* Azul escuro no hover */
+}
+
+/* Para Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: black #ffffff;
+}
+
+/* 🔥 Rolagem fluida em toda a página */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 🔥 Suavização da rolagem para elementos específicos */
+.scroll-container {
+    scroll-behavior: smooth;
+    overflow-y: auto;
+    height: 300px; /* Defina a altura conforme necessário */
+    border: 1px solid #ddd;
 }

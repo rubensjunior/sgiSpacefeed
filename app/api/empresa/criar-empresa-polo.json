@@ -1,0 +1,228 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "name": "nome_empresa"
+      },
+      {
+        "type": "text",
+        "name": "nome_fantasia"
+      },
+      {
+        "type": "text",
+        "name": "cnpj_empresa"
+      },
+      {
+        "type": "text",
+        "name": "telefone_empresa"
+      },
+      {
+        "type": "text",
+        "name": "celular_empresa"
+      },
+      {
+        "type": "text",
+        "name": "endereco_empresa"
+      },
+      {
+        "type": "text",
+        "name": "nome_polo"
+      },
+      {
+        "type": "text",
+        "name": "cep_polo"
+      },
+      {
+        "type": "text",
+        "name": "obs_endereco"
+      },
+      {
+        "type": "text",
+        "name": "status_empresa"
+      },
+      {
+        "type": "datetime",
+        "name": "criado_em"
+      },
+      {
+        "type": "datetime",
+        "name": "atualizado_em"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "insertCadastrarEmpresaPolo",
+      "module": "dbupdater",
+      "action": "insert",
+      "options": {
+        "connection": "spacefeedBD",
+        "sql": {
+          "type": "insert",
+          "values": [
+            {
+              "table": "empresas",
+              "column": "nome_empresa",
+              "type": "text",
+              "value": "{{$_POST.nome_empresa}}"
+            },
+            {
+              "table": "empresas",
+              "column": "nome_fantasia",
+              "type": "text",
+              "value": "{{$_POST.nome_fantasia}}"
+            },
+            {
+              "table": "empresas",
+              "column": "cnpj_empresa",
+              "type": "text",
+              "value": "{{$_POST.cnpj_empresa}}"
+            },
+            {
+              "table": "empresas",
+              "column": "telefone_empresa",
+              "type": "text",
+              "value": "{{$_POST.telefone_empresa}}"
+            },
+            {
+              "table": "empresas",
+              "column": "celular_empresa",
+              "type": "text",
+              "value": "{{$_POST.celular_empresa}}"
+            },
+            {
+              "table": "empresas",
+              "column": "endereco_empresa",
+              "type": "text",
+              "value": "{{$_POST.endereco_empresa}}"
+            },
+            {
+              "table": "empresas",
+              "column": "nome_polo",
+              "type": "text",
+              "value": "{{$_POST.nome_polo}}"
+            },
+            {
+              "table": "empresas",
+              "column": "cep_polo",
+              "type": "text",
+              "value": "{{$_POST.cep_polo}}"
+            },
+            {
+              "table": "empresas",
+              "column": "obs_endereco",
+              "type": "text",
+              "value": "{{$_POST.obs_endereco}}"
+            },
+            {
+              "table": "empresas",
+              "column": "status_empresa",
+              "type": "text",
+              "value": "{{$_POST.status_empresa}}"
+            },
+            {
+              "table": "empresas",
+              "column": "criado_em",
+              "type": "datetime",
+              "value": "{{$_POST.criado_em}}"
+            },
+            {
+              "table": "empresas",
+              "column": "atualizado_em",
+              "type": "datetime",
+              "value": "{{$_POST.atualizado_em}}"
+            }
+          ],
+          "table": "empresas",
+          "returning": "id_empresa",
+          "query": "insert into \"empresas\" (\"atualizado_em\", \"celular_empresa\", \"cep_polo\", \"cnpj_empresa\", \"criado_em\", \"endereco_empresa\", \"nome_empresa\", \"nome_fantasia\", \"nome_polo\", \"obs_endereco\", \"status_empresa\", \"telefone_empresa\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.nome_empresa}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.nome_fantasia}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.cnpj_empresa}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.telefone_empresa}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{$_POST.celular_empresa}}",
+              "test": ""
+            },
+            {
+              "name": ":P6",
+              "type": "expression",
+              "value": "{{$_POST.endereco_empresa}}",
+              "test": ""
+            },
+            {
+              "name": ":P7",
+              "type": "expression",
+              "value": "{{$_POST.nome_polo}}",
+              "test": ""
+            },
+            {
+              "name": ":P8",
+              "type": "expression",
+              "value": "{{$_POST.cep_polo}}",
+              "test": ""
+            },
+            {
+              "name": ":P9",
+              "type": "expression",
+              "value": "{{$_POST.obs_endereco}}",
+              "test": ""
+            },
+            {
+              "name": ":P10",
+              "type": "expression",
+              "value": "{{$_POST.status_empresa}}",
+              "test": ""
+            },
+            {
+              "name": ":P11",
+              "type": "expression",
+              "value": "{{$_POST.criado_em}}",
+              "test": ""
+            },
+            {
+              "name": ":P12",
+              "type": "expression",
+              "value": "{{$_POST.atualizado_em}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "identity",
+          "type": "text"
+        },
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

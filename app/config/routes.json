@@ -10,6 +10,21 @@
       "path": "/cadastrar-conta",
       "page": "cadastrar-conta",
       "layout": "main"
+    },
+    {
+      "path": "/b/index",
+      "page": "backoffice/index",
+      "layout": "backoffice"
+    },
+    {
+      "path": "/backoffice/cadastrar-polo",
+      "page": "backoffice/cadastrar-polo",
+      "layout": "backoffice"
     }
-  ]
+  ],
+  "layouts": {
+    "backoffice": {
+      "exec": "/api/aoth/pagina-restrita"
+    }
+  }
 }

@@ -14,7 +14,9 @@
     ],
     "tables": {
       "leads": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_lead": {
             "db": {
@@ -112,7 +114,9 @@
         }
       },
       "financeiro_transacoes": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_financeiro": {
             "db": {
@@ -205,7 +209,9 @@
         }
       },
       "usuarios_empresas": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "ref_id_usuario": {
             "db": {
@@ -237,7 +243,9 @@
         "parent": "usuarios"
       },
       "departamentos": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_departamento": {
             "db": {
@@ -263,7 +271,9 @@
         }
       },
       "usuarios": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_usuario": {
             "db": {
@@ -356,7 +366,9 @@
         }
       },
       "leads_interacoes": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_interacao": {
             "db": {
@@ -423,7 +435,9 @@
         "parent": "leads"
       },
       "projetos": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_projeto": {
             "db": {
@@ -521,11 +535,15 @@
         }
       },
       "projetos_usuarios": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "parent": "projetos"
       },
       "tarefas": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_tarefa": {
             "db": {
@@ -632,7 +650,9 @@
         }
       },
       "funcoes": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_funcao": {
             "db": {
@@ -687,11 +707,15 @@
         }
       },
       "funcoes_usuarios": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "parent": "funcoes"
       },
       "empresas": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_empresa": {
             "db": {

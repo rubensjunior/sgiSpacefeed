@@ -1,0 +1,10 @@
+{
+  "index.ejs": {
+    "layoutPage": "backoffice",
+    "description": ""
+  },
+  "cadastrar-polo.ejs": {
+    "layoutPage": "backoffice",
+    "description": ""
+  }
+}
