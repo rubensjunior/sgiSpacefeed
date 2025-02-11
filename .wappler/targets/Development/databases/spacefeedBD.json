@@ -13,6 +13,156 @@
       "public"
     ],
     "tables": {
+      "empresas": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_empresa": {
+            "db": {
+              "type": "increments",
+              "default": "",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "nome_empresa": {
+            "db": {
+              "type": "string",
+              "maxLength": 100,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "nome_fantasia": {
+            "db": {
+              "type": "string",
+              "maxLength": 100,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "cnpj_empresa": {
+            "db": {
+              "type": "string",
+              "maxLength": 20,
+              "primary": false,
+              "unique": true,
+              "nullable": true
+            }
+          },
+          "telefone_empresa": {
+            "db": {
+              "type": "string",
+              "maxLength": 20,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "celular_empresa": {
+            "db": {
+              "type": "string",
+              "maxLength": 20,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "endereco_empresa": {
+            "db": {
+              "type": "text",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "nome_polo": {
+            "db": {
+              "type": "string",
+              "maxLength": 100,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "cep_polo": {
+            "db": {
+              "type": "string",
+              "maxLength": 10,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "obs_endereco": {
+            "db": {
+              "type": "text",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "status_empresa": {
+            "db": {
+              "type": "string",
+              "default": "Ativo",
+              "maxLength": 10,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "criado_em": {
+            "db": {
+              "type": "timestamp",
+              "default": "knex.fn.now()",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "atualizado_em": {
+            "db": {
+              "type": "timestamp",
+              "default": "knex.fn.now()",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "Cidade": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "Estado": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        },
+        "refs": {
+          "leads": "ref_id_empresa",
+          "financeiro_transacoes": "ref_id_empresa",
+          "usuarios_empresas": "ref_id_empresa",
+          "usuarios": "empresa_selecionada",
+          "projetos": "ref_id_empresa",
+          "tarefas": "ref_id_empresa",
+          "funcoes_usuarios": "ref_id_empresa"
+        }
+      },
       "leads": {
         "db": {
           "schema": "public"
@@ -647,154 +797,6 @@
               "nullable": true
             }
           }
-        }
-      },
-      "empresas": {
-        "db": {},
-        "columns": {
-          "id_empresa": {
-            "db": {
-              "type": "increments",
-              "default": "",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "nome_empresa": {
-            "db": {
-              "type": "string",
-              "maxLength": 100,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "nome_fantasia": {
-            "db": {
-              "type": "string",
-              "maxLength": 100,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "cnpj_empresa": {
-            "db": {
-              "type": "string",
-              "maxLength": 20,
-              "primary": false,
-              "unique": true,
-              "nullable": true
-            }
-          },
-          "telefone_empresa": {
-            "db": {
-              "type": "string",
-              "maxLength": 20,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "celular_empresa": {
-            "db": {
-              "type": "string",
-              "maxLength": 20,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "endereco_empresa": {
-            "db": {
-              "type": "text",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "nome_polo": {
-            "db": {
-              "type": "string",
-              "maxLength": 100,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "cep_polo": {
-            "db": {
-              "type": "string",
-              "maxLength": 10,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "obs_endereco": {
-            "db": {
-              "type": "text",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "status_empresa": {
-            "db": {
-              "type": "string",
-              "default": "Ativo",
-              "maxLength": 10,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "criado_em": {
-            "db": {
-              "type": "timestamp",
-              "default": "knex.fn.now()",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "atualizado_em": {
-            "db": {
-              "type": "timestamp",
-              "default": "knex.fn.now()",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "Cidade": {
-            "db": {
-              "type": "string",
-              "maxLength": 255,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "Estado": {
-            "db": {
-              "type": "string",
-              "maxLength": 255,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
-        },
-        "refs": {
-          "leads": "ref_id_empresa",
-          "financeiro_transacoes": "ref_id_empresa",
-          "usuarios_empresas": "ref_id_empresa",
-          "usuarios": "empresa_selecionada",
-          "projetos": "ref_id_empresa",
-          "tarefas": "ref_id_empresa",
-          "funcoes_usuarios": "ref_id_empresa"
         }
       },
       "funcoes": {

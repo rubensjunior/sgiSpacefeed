@@ -5,7 +5,7 @@
     background-size: cover;
 }
 .bg-cinza{
-    background-color: #f4f4f4;
+    background-color: #ffffff;
 }
 .form-control, .select-form{
     min-height: 48px;
@@ -58,7 +58,7 @@
 
 /* Efeito de hover: leve destaque com sombra e mudança de cor */
 .menu-container:hover {
-    background-color: rgba(0, 0, 0, 0.05); /* Cinza suave */
+    background-color: rgba(0, 0, 0, 0.02); /* Cinza suave */
     -webkit-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     -webkit-transform: translateX(3px);
@@ -69,12 +69,12 @@
 .menu-container:active {
     -webkit-transform: scale(0.95);
             transform: scale(0.95);
-    background-color: rgba(0, 0, 0, 0.07);
+    background-color: rgba(0, 0, 0, 0.02);
 }
 
 /* Destaque para o item ativo (selecionado) */
 .menu-container.active {
-    background-color: rgba(0, 0, 0, 0.07);
+    background-color: rgba(0, 0, 0, 0.02);
     border-left: 4px solid #0d6efd; /* Borda azul para indicar seleção */
 }
 
