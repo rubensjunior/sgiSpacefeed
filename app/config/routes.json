@@ -20,6 +20,11 @@
       "path": "/b/cadastrar-polo",
       "page": "backoffice/cadastrar-polo",
       "layout": "backoffice"
+    },
+    {
+      "path": "/b/colaboradores",
+      "page": "backoffice/colaboradores",
+      "layout": "backoffice"
     }
   ],
   "layouts": {

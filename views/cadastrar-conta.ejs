@@ -10,7 +10,7 @@
                     <h3 dmx-hide="visibilidade.value==3">Crie Sua Conta</h3>
                     <p class="mb-4" dmx-hide="visibilidade.value==3">Está a um clique de transformar sua operação em um negócio ainda mais profissional, eficiente e preparado para crescer. Comece agora e dê o próximo grande passo rumo ao sucesso!</p>
 
-                    <form id="cadastrarFormConta" is="dmx-serverconnect-form" method="post" action="/api/aoth/nova-conta" dmx-on:error="alertas.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response+'. Entre em contato com o suporte: suporte@spacefeed.app');cadastrarFormConta.reset();visibilidade.setValue(0)" dmx-on:success="cadastrarFormConta.reset();visibilidade.setValue(3)" dmx-on:invalid="alertas.warning(status+' Voce ja possui uma conta com este e-mail.')">
+                    <form id="cadastrarFormConta" is="dmx-serverconnect-form" method="post" action="/api/aoth/nova-conta" dmx-on:error="alertas.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response+'. Entre em contato com o suporte: suporte@spacefeed.app');cadastrarFormConta.reset();visibilidade.setValue(0)" dmx-on:success="cadastrarFormConta.reset();navegacao.goto('/b/cadastrar-polo')" dmx-on:invalid="alertas.warning(status+' Voce ja possui uma conta com este e-mail.')">
 
                         <div class="d-flex flex-column">
                             <div class="form-group mb-3"> <label for="nomeUsuario" class="form-label">*Nome completo</label>

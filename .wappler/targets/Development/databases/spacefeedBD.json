@@ -14,9 +14,7 @@
     ],
     "tables": {
       "empresas": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_empresa": {
             "db": {
@@ -164,9 +162,7 @@
         }
       },
       "leads": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_lead": {
             "db": {
@@ -264,9 +260,7 @@
         }
       },
       "financeiro_transacoes": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_financeiro": {
             "db": {
@@ -359,9 +353,7 @@
         }
       },
       "usuarios_empresas": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "ref_id_usuario": {
             "db": {
@@ -393,9 +385,7 @@
         "parent": "usuarios"
       },
       "departamentos": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_departamento": {
             "db": {
@@ -421,9 +411,7 @@
         }
       },
       "usuarios": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_usuario": {
             "db": {
@@ -516,9 +504,7 @@
         }
       },
       "leads_interacoes": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_interacao": {
             "db": {
@@ -585,9 +571,7 @@
         "parent": "leads"
       },
       "projetos": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_projeto": {
             "db": {
@@ -685,15 +669,11 @@
         }
       },
       "projetos_usuarios": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "parent": "projetos"
       },
       "tarefas": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_tarefa": {
             "db": {
@@ -800,9 +780,7 @@
         }
       },
       "funcoes": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_funcao": {
             "db": {
@@ -857,10 +835,58 @@
         }
       },
       "funcoes_usuarios": {
-        "db": {
-          "schema": "public"
-        },
-        "parent": "funcoes"
+        "db": {},
+        "parent": "funcoes",
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "default": "",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "ref_id_usuario": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_usuario",
+              "inTable": "usuarios",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "CASCADE"
+            }
+          },
+          "ref_id_empresa": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "CASCADE"
+            }
+          },
+          "ref_id_funcao": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_funcao",
+              "inTable": "funcoes",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "CASCADE"
+            }
+          }
+        }
       }
     },
     "views": {}

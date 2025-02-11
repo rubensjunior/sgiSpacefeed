@@ -103,7 +103,14 @@
             "conditional": null,
             "valid": true
           },
-          "query": "select \"usuarios_empresas\".\"ref_id_usuario\", \"usuarios_empresas\".\"ref_id_empresa\", \"empresas\".* from \"usuarios_empresas\" inner join \"empresas\" on \"empresas\".\"id_empresa\" = \"usuarios_empresas\".\"ref_id_empresa\" where \"usuarios_empresas\".\"ref_id_usuario\" = ?"
+          "query": "select \"usuarios_empresas\".\"ref_id_usuario\", \"usuarios_empresas\".\"ref_id_empresa\", \"empresas\".* from \"usuarios_empresas\" inner join \"empresas\" on \"empresas\".\"id_empresa\" = \"usuarios_empresas\".\"ref_id_empresa\" where \"usuarios_empresas\".\"ref_id_usuario\" = ? order by \"empresas\".\"criado_em\" ASC",
+          "orders": [
+            {
+              "table": "empresas",
+              "column": "criado_em",
+              "direction": "ASC"
+            }
+          ]
         }
       },
       "output": true,

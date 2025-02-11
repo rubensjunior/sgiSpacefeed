@@ -5,7 +5,7 @@
     background-size: cover;
 }
 .bg-cinza{
-    background-color: #ffffff;
+    background-color: #F9FAFB;
 }
 .form-control, .select-form{
     min-height: 48px;
@@ -14,6 +14,10 @@
 }
 .cursor{
     cursor: pointer;
+}
+.subtitulos-pagina{
+    font-size: 14px;
+    font-weight: 500;
 }
 .btn{
     font-weight: 500;
