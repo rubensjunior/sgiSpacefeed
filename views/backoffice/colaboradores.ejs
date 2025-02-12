@@ -1,18 +1,13 @@
 <!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="colaboradores" appConnect="local" bootstrap_icons="cdn" components="{dmxBootstrap5Offcanvas:{},dmxValidator:{},dmxFormatter:{},dmxBootstrap5TableGenerator:{},dmxDataTraversal:{}}" -->
 
 <dmx-data-detail id="editarColaborador" dmx-bind:data="listarColaboradores.data.queryColaboradores" key="id_usuario"></dmx-data-detail>
-<div class="offcanvas offcanvas-end" id="cadastrarOffcanvasFuncao" is="dmx-bs5-offcanvas" tabindex="-1">
+<div class="offcanvas offcanvas-end w-50" id="cadastrarOffcanvasFuncao" is="dmx-bs5-offcanvas" tabindex="-1">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title">Adicionar funcão</h5>
+        <h5 class="offcanvas-title">{{editarColaborador.data.nome_usuario}}</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" dmx-on:click="cadastrarFormFuncao.reset();cadastrarOffcanvasFuncao.hide();editarColaborador.select(0);listaFuncaoColaborador.reset()"></button>
     </div>
     <div class="offcanvas-body">
         <form id="cadastrarFormFuncao" is="dmx-serverconnect-form" method="post" action="/api/colaboradores/atribuir-funcao" dmx-on:error="alertas.danger('Ocorreu um erro: '+cadastrarOffcanvasFuncao.cadastrarFormFuncao.lastError.status+cadastrarOffcanvasFuncao.cadastrarFormFuncao.lastError.message+cadastrarOffcanvasFuncao.cadastrarFormFuncao.lastError.response+'. Entre em contato com o suporte.');editarColaborador.select(0);cadastrarFormFuncao.reset();cadastrarOffcanvasFuncao.hide()" dmx-on:success="listaFuncaoColaborador.load({empresacolaboradorselecionado: usuarioLogado.data.queryIdentificarUsuario.empresa_selecionada, idcolaboradoradorselecionado: editarColaborador.data.id_usuario})" class="MB-3">
-            <div class="row">
-                <div class="col">
-                    <h6>Para: {{editarColaborador.data.nome_usuario}}</h6>
-                </div>
-            </div>
             <div class="form-group mb-3"> <label for="input1" class="form-label">Departamento</label>
                 <input id="idUsuarioFuncao" name="idUsuarioFuncao" type="hidden" class="form-control" dmx-bind:value="editarColaborador.data.id_usuario">
                 <input id="idUsuarioFuncaoEmpresa" name="idUsuarioFuncaoEmpresa" type="hidden" class="form-control" dmx-bind:value="usuarioLogado.data.queryIdentificarUsuario.empresa_selecionada">
@@ -31,12 +26,18 @@
                 <tr>
                     <th>DEPARTAMENTO</th>
                     <th>FUNÇÃO</th>
+                    <th scope="row" class="text-end"></th>
                 </tr>
             </thead>
             <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="listaFuncaoColaborador.data.queryFuncaoColaborador" id="tableRepeat2">
                 <tr>
-                    <td dmx-text="nome_departamento"></td>
-                    <td dmx-text="nome_funcao"></td>
+                    <td dmx-text="nome_departamento" class="align-middle"></td>
+                    <td dmx-text="nome_funcao" class="align-middle"></td>
+                    <td class="text-end align-middle">
+                        <button id="btn7" class="btn btn-sm btn-danger" dmx-on:click="run([{run:{name:'remover',outputType:'text',action:`removerFuncao.load({idfuncaoatribuida: id})`}},{wait:{delay:1000}},{run:{name:'listar',outputType:'text',action:`listaFuncaoColaborador.load({empresacolaboradorselecionado: usuarioLogado.data.queryIdentificarUsuario.empresa_selecionada, idcolaboradoradorselecionado: editarColaborador.data.id_usuario})`}}])">
+                            <i class="far fa-trash-alt "></i>
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -70,12 +71,19 @@
     <div class="offcanvas-body">
         <form id="editarFormColaborador" is="dmx-serverconnect-form" method="post" action="/api/colaboradores/atualizar-colaborador" dmx-on:error="alertas.danger('Ocorreu um erro: '+atualizarOffcanvasColaborador.editarFormColaborador.lastError.status+atualizarOffcanvasColaborador.editarFormColaborador.lastError.message+atualizarOffcanvasColaborador.editarFormColaborador.lastError.response+'. Entre em contato com o suporte.');editarColaborador.select(0);editarFormColaborador.reset();atualizarOffcanvasColaborador.hide()" dmx-on:success="editarFormColaborador.reset();atualizarOffcanvasColaborador.hide();editarColaborador.select(0);alertas.success('Colaborador atualizado com sucesso!');listarColaboradores.load({})">
             <input type="hidden" class="form-control" id="idColaboradorSelecionado" name="idColaboradorSelecionado" aria-describedby="input1_help" dmx-bind:value="editarColaborador.data.id_usuario">
+            <input type="hidden" class="form-control" id="idEmpresaColaboradorSelecionado" name="idEmpresaColaboradorSelecionado" aria-describedby="input1_help" dmx-bind:value="usuarioLogado.data.queryIdentificarUsuario.empresa_selecionada">
             <div class="form-group mb-3"> <label for="editnomeCompleto" class="form-label">Nome completo</label>
                 <input type="text" class="form-control" id="editnomeCompleto" name="editnomeCompleto" aria-describedby="input1_help" dmx-bind:value="editarColaborador.data.nome_usuario">
 
             </div>
             <div class="form-group mb-3"> <label for="editemail" class="form-label">E-mail</label>
                 <input type="email" class="form-control" id="editemail" name="editemail" aria-describedby="input1_help" dmx-bind:value="editarColaborador.data.email_usuario" data-rule-email="" data-msg-email="Insira um e-mail válido.">
+            </div>
+            <div class="form-group mb-3"> <label for="editemail1" class="form-label">Status</label>
+                <select id="selectStatusVinculo" class="form-select select-form" name="selectStatusVinculo" dmx-bind:value="editarColaborador.data.status_vinculo">
+                    <option value="Ativo">Ativo</option>
+                    <option value="Inativo">Inativo</option>
+                </select>
             </div>
         </form>
     </div>
@@ -118,11 +126,12 @@
                         <th scope="row" class="text-start pb-3"></th>
                     </tr>
                 </thead>
-                <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="listarColaboradores.data.queryColaboradores" id="tableRepeat1">
+                <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="listarColaboradores.data.queryColaboradores" id="tableRepeat3">
                     <tr>
-                        <td dmx-text="nome_usuario" class="text-start py-3"></td>
-                        <td dmx-text="email_usuario" class="text-start py-3"></td>
-                        <td dmx-text="status_usuario" class="text-start py-3"></td>
+                        <td class="text-start py-3" dmx-text="nome_usuario"></td>
+                        <td class="text-start py-3" dmx-text="email_usuario"></td>
+                        <td dmx-text="status_vinculo" class="text-start">
+                        </td>
                         <td class="text-end">
                             <button id="btn3" class="btn btn-light btn-sm btn-custom" data-bs-toggle="offcanvas" data-bs-target="#cadastrarOffcanvasFuncao" dmx-on:click="listaFuncaoColaborador.load({empresacolaboradorselecionado: usuarioLogado.data.queryIdentificarUsuario.empresa_selecionada, idcolaboradoradorselecionado: id_usuario});editarColaborador.select(id_usuario)">Atribuir função</button>
                         </td>

@@ -11,6 +11,11 @@
         "name": "idColaboradorSelecionado"
       },
       {
+        "type": "number",
+        "fieldName": "idEmpresaColaboradorSelecionado",
+        "name": "idEmpresaColaboradorSelecionado"
+      },
+      {
         "type": "text",
         "fieldName": "editnomeCompleto",
         "name": "editnomeCompleto"
@@ -21,99 +26,185 @@
         "options": {
           "rules": {
             "core:email": {
+              "param": "",
               "message": "Insira um e-mail válido."
             }
           }
         },
         "name": "editemail"
+      },
+      {
+        "type": "text",
+        "fieldName": "selectStatusVinculo",
+        "name": "selectStatusVinculo"
       }
     ]
   },
   "exec": {
-    "steps": {
-      "name": "updateColaborador",
-      "module": "dbupdater",
-      "action": "update",
-      "options": {
-        "connection": "spacefeedBD",
-        "sql": {
-          "type": "update",
-          "values": [
-            {
-              "table": "usuarios",
-              "column": "nome_usuario",
-              "type": "text",
-              "value": "{{$_POST.editnomeCompleto}}"
-            },
-            {
-              "table": "usuarios",
-              "column": "email_usuario",
-              "type": "text",
-              "value": "{{$_POST.editemail}}"
-            },
-            {
-              "table": "usuarios",
-              "column": "atualizado_em",
-              "type": "datetime",
-              "value": "{{NOW}}"
-            }
-          ],
-          "table": "usuarios",
-          "wheres": {
-            "condition": "AND",
-            "rules": [
+    "steps": [
+      {
+        "name": "updateColaborador",
+        "module": "dbupdater",
+        "action": "update",
+        "options": {
+          "connection": "spacefeedBD",
+          "sql": {
+            "type": "update",
+            "values": [
               {
-                "id": "id_usuario",
-                "field": "id_usuario",
-                "type": "double",
-                "operator": "equal",
-                "value": "{{$_POST.idColaboradorSelecionado}}",
-                "data": {
-                  "column": "id_usuario"
-                },
-                "operation": "="
+                "table": "usuarios",
+                "column": "nome_usuario",
+                "type": "text",
+                "value": "{{$_POST.editnomeCompleto}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "email_usuario",
+                "type": "text",
+                "value": "{{$_POST.editemail}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "atualizado_em",
+                "type": "datetime",
+                "value": "{{NOW}}"
               }
             ],
-            "conditional": null,
-            "valid": true
-          },
-          "returning": "id_usuario",
-          "query": "update \"usuarios\" set \"nome_usuario\" = ?, \"email_usuario\" = ?, \"atualizado_em\" = ? where \"id_usuario\" = ? returning \"id_usuario\"",
-          "params": [
-            {
-              "name": ":P1",
-              "type": "expression",
-              "value": "{{$_POST.editnomeCompleto}}",
-              "test": ""
+            "table": "usuarios",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "id_usuario",
+                  "field": "id_usuario",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_POST.idColaboradorSelecionado}}",
+                  "data": {
+                    "column": "id_usuario"
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
             },
-            {
-              "name": ":P2",
-              "type": "expression",
-              "value": "{{$_POST.editemail}}",
-              "test": ""
-            },
-            {
-              "name": ":P3",
-              "type": "expression",
-              "value": "{{NOW}}",
-              "test": ""
-            },
-            {
-              "operator": "equal",
-              "type": "expression",
-              "name": ":P4",
-              "value": "{{$_POST.idColaboradorSelecionado}}",
-              "test": ""
-            }
-          ]
-        }
+            "returning": "id_usuario",
+            "query": "update \"usuarios\" set \"nome_usuario\" = ?, \"email_usuario\" = ?, \"atualizado_em\" = ? where \"id_usuario\" = ? returning \"id_usuario\"",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.editnomeCompleto}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.editemail}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              },
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P4",
+                "value": "{{$_POST.idColaboradorSelecionado}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
       },
-      "meta": [
-        {
-          "name": "affected",
-          "type": "number"
-        }
-      ]
-    }
+      {
+        "name": "updateVinculoEmpresaStatus",
+        "module": "dbupdater",
+        "action": "update",
+        "options": {
+          "connection": "spacefeedBD",
+          "sql": {
+            "type": "update",
+            "values": [
+              {
+                "table": "usuarios_empresas",
+                "column": "status_vinculo",
+                "type": "text",
+                "value": "{{$_POST.selectStatusVinculo}}"
+              }
+            ],
+            "table": "usuarios_empresas",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "ref_id_usuario",
+                  "field": "ref_id_usuario",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_POST.idColaboradorSelecionado}}",
+                  "data": {
+                    "column": "ref_id_usuario"
+                  },
+                  "operation": "="
+                },
+                {
+                  "id": "ref_id_empresa",
+                  "field": "ref_id_empresa",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{$_POST.idEmpresaColaboradorSelecionado}}",
+                  "data": {
+                    "column": "ref_id_empresa"
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "update \"usuarios_empresas\" set \"status_vinculo\" = ? where \"ref_id_usuario\" = ? and \"ref_id_empresa\" = ?",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.selectStatusVinculo}}",
+                "test": ""
+              },
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P2",
+                "value": "{{$_POST.idColaboradorSelecionado}}",
+                "test": ""
+              },
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P3",
+                "value": "{{$_POST.idEmpresaColaboradorSelecionado}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      }
+    ]
   }
 }

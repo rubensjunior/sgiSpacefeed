@@ -132,7 +132,8 @@
                     "name": "ref_id_usuario"
                   }
                 },
-                "operation": "="
+                "operation": "=",
+                "table": "funcoes_usuarios"
               },
               {
                 "id": "funcoes_usuarios.ref_id_empresa",
@@ -157,7 +158,8 @@
                     "name": "ref_id_empresa"
                   }
                 },
-                "operation": "="
+                "operation": "=",
+                "table": "funcoes_usuarios"
               }
             ],
             "conditional": null,
