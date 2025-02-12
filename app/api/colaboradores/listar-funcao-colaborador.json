@@ -1,0 +1,219 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "empresacolaboradorselecionado"
+      },
+      {
+        "type": "number",
+        "name": "idcolaboradoradorselecionado"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "queryFuncaoColaborador",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "spacefeedBD",
+        "sql": {
+          "type": "select",
+          "columns": [
+            {
+              "table": "funcoes_usuarios",
+              "column": "*"
+            },
+            {
+              "table": "departamentos",
+              "column": "*"
+            },
+            {
+              "table": "funcoes",
+              "column": "*"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.idcolaboradoradorselecionado}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P2",
+              "value": "{{$_GET.empresacolaboradorselecionado}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "funcoes_usuarios"
+          },
+          "primary": "id",
+          "joins": [
+            {
+              "table": "departamentos",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "departamentos",
+                    "column": "id_departamento",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "funcoes_usuarios",
+                      "column": "ref_id_departamento"
+                    }
+                  }
+                ]
+              },
+              "primary": "id_departamento"
+            },
+            {
+              "table": "funcoes",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "funcoes",
+                    "column": "id_funcao",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "funcoes_usuarios",
+                      "column": "ref_id_funcao"
+                    }
+                  }
+                ]
+              },
+              "primary": "id_funcao"
+            }
+          ],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "funcoes_usuarios.ref_id_usuario",
+                "field": "funcoes_usuarios.ref_id_usuario",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.idcolaboradoradorselecionado}}",
+                "data": {
+                  "table": "funcoes_usuarios",
+                  "column": "ref_id_usuario",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id_usuario",
+                    "inTable": "usuarios",
+                    "referenceType": "integer",
+                    "onUpdate": "NO ACTION",
+                    "onDelete": "CASCADE",
+                    "name": "ref_id_usuario"
+                  }
+                },
+                "operation": "="
+              },
+              {
+                "id": "funcoes_usuarios.ref_id_empresa",
+                "field": "funcoes_usuarios.ref_id_empresa",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.empresacolaboradorselecionado}}",
+                "data": {
+                  "table": "funcoes_usuarios",
+                  "column": "ref_id_empresa",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id_empresa",
+                    "inTable": "empresas",
+                    "referenceType": "integer",
+                    "onUpdate": "NO ACTION",
+                    "onDelete": "CASCADE",
+                    "name": "ref_id_empresa"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select \"funcoes_usuarios\".*, \"departamentos\".*, \"funcoes\".* from \"funcoes_usuarios\" inner join \"departamentos\" on \"departamentos\".\"id_departamento\" = \"funcoes_usuarios\".\"ref_id_departamento\" inner join \"funcoes\" on \"funcoes\".\"id_funcao\" = \"funcoes_usuarios\".\"ref_id_funcao\" where \"funcoes_usuarios\".\"ref_id_usuario\" = ? and \"funcoes_usuarios\".\"ref_id_empresa\" = ?"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "id"
+        },
+        {
+          "type": "number",
+          "name": "ref_id_usuario"
+        },
+        {
+          "type": "number",
+          "name": "ref_id_empresa"
+        },
+        {
+          "type": "number",
+          "name": "ref_id_funcao"
+        },
+        {
+          "type": "number",
+          "name": "ref_id_departamento"
+        },
+        {
+          "type": "number",
+          "name": "id_departamento"
+        },
+        {
+          "type": "text",
+          "name": "nome_departamento"
+        },
+        {
+          "type": "number",
+          "name": "id_funcao"
+        },
+        {
+          "type": "text",
+          "name": "nome_funcao"
+        },
+        {
+          "type": "number",
+          "name": "nivel_hierarquia"
+        },
+        {
+          "type": "number",
+          "name": "nivel_acesso"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

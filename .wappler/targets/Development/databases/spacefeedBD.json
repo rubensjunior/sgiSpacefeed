@@ -14,9 +14,7 @@
     ],
     "tables": {
       "leads": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_lead": {
             "db": {
@@ -114,9 +112,7 @@
         }
       },
       "financeiro_transacoes": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_financeiro": {
             "db": {
@@ -209,9 +205,7 @@
         }
       },
       "departamentos": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_departamento": {
             "db": {
@@ -233,13 +227,12 @@
           }
         },
         "refs": {
-          "funcoes": "ref_id_departamento"
+          "funcoes": "ref_id_departamento",
+          "funcoes_usuarios": "ref_id_departamento"
         }
       },
       "usuarios_empresas": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "ref_id_usuario": {
             "db": {
@@ -281,9 +274,7 @@
         "parent": "usuarios"
       },
       "usuarios": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_usuario": {
             "db": {
@@ -317,7 +308,7 @@
               "type": "text",
               "primary": false,
               "unique": false,
-              "nullable": false
+              "nullable": true
             }
           },
           "empresa_selecionada": {
@@ -376,9 +367,7 @@
         }
       },
       "leads_interacoes": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_interacao": {
             "db": {
@@ -445,9 +434,7 @@
         "parent": "leads"
       },
       "projetos": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_projeto": {
             "db": {
@@ -545,15 +532,48 @@
         }
       },
       "projetos_usuarios": {
-        "db": {
-          "schema": "public"
+        "db": {},
+        "columns": {
+          "id_projeto_usuario": {
+            "db": {
+              "type": "increments",
+              "default": "",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "ref_id_projeto": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_projeto",
+              "inTable": "projetos",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "CASCADE"
+            }
+          },
+          "ref_id_usuario": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_usuario",
+              "inTable": "usuarios",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "CASCADE"
+            }
+          }
         },
         "parent": "projetos"
       },
       "tarefas": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_tarefa": {
             "db": {
@@ -660,9 +680,7 @@
         }
       },
       "empresas": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_empresa": {
             "db": {
@@ -810,9 +828,7 @@
         }
       },
       "funcoes": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id_funcao": {
             "db": {
@@ -867,9 +883,7 @@
         }
       },
       "funcoes_usuarios": {
-        "db": {
-          "schema": "public"
-        },
+        "db": {},
         "columns": {
           "id": {
             "db": {
@@ -917,6 +931,19 @@
               "referenceType": "integer",
               "onUpdate": "NO ACTION",
               "onDelete": "CASCADE"
+            }
+          },
+          "ref_id_departamento": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_departamento",
+              "inTable": "departamentos",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "NO ACTION"
             }
           }
         },

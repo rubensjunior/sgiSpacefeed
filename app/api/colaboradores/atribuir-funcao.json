@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/backoffice/colaboradores.ejs",
+      "linkedForm": "cadastrarFormFuncao"
+    },
+    "$_POST": [
+      {
+        "type": "number",
+        "fieldName": "idUsuarioFuncao",
+        "name": "idUsuarioFuncao"
+      },
+      {
+        "type": "number",
+        "fieldName": "selectDepartamento",
+        "name": "selectDepartamento"
+      },
+      {
+        "type": "number",
+        "fieldName": "selectFuncao",
+        "name": "selectFuncao"
+      },
+      {
+        "type": "number",
+        "fieldName": "idUsuarioFuncaoEmpresa",
+        "name": "idUsuarioFuncaoEmpresa"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "insertFuncao",
+      "module": "dbupdater",
+      "action": "insert",
+      "options": {
+        "connection": "spacefeedBD",
+        "sql": {
+          "type": "insert",
+          "values": [
+            {
+              "table": "funcoes_usuarios",
+              "column": "ref_id_usuario",
+              "type": "number",
+              "value": "{{$_POST.idUsuarioFuncao}}"
+            },
+            {
+              "table": "funcoes_usuarios",
+              "column": "ref_id_empresa",
+              "type": "number",
+              "value": "{{$_POST.idUsuarioFuncaoEmpresa}}"
+            },
+            {
+              "table": "funcoes_usuarios",
+              "column": "ref_id_funcao",
+              "type": "number",
+              "value": "{{$_POST.selectFuncao}}"
+            },
+            {
+              "table": "funcoes_usuarios",
+              "column": "ref_id_departamento",
+              "type": "number",
+              "value": "{{$_POST.selectDepartamento}}"
+            }
+          ],
+          "table": "funcoes_usuarios",
+          "returning": "id",
+          "query": "insert into \"funcoes_usuarios\" (\"ref_id_departamento\", \"ref_id_empresa\", \"ref_id_funcao\", \"ref_id_usuario\") values (?, ?, ?, ?) returning \"id\"",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.idUsuarioFuncao}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.idUsuarioFuncaoEmpresa}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.selectFuncao}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.selectDepartamento}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "identity",
+          "type": "text"
+        },
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}
