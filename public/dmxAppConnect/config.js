@@ -276,5 +276,56 @@ dmx.config({
       ],
       "outputType": "array"
     }
+  },
+  "colaboradores": {
+    "editarColaborador": {
+      "meta": [
+        {
+          "type": "number",
+          "name": "ref_id_empresa"
+        },
+        {
+          "type": "number",
+          "name": "ref_id_usuario"
+        },
+        {
+          "type": "text",
+          "name": "status_vinculo"
+        },
+        {
+          "type": "number",
+          "name": "id_usuario"
+        },
+        {
+          "type": "text",
+          "name": "nome_usuario"
+        },
+        {
+          "type": "text",
+          "name": "email_usuario"
+        },
+        {
+          "type": "text",
+          "name": "senha_usuario"
+        },
+        {
+          "type": "number",
+          "name": "empresa_selecionada"
+        },
+        {
+          "type": "text",
+          "name": "status_usuario"
+        },
+        {
+          "type": "datetime",
+          "name": "criado_em"
+        },
+        {
+          "type": "datetime",
+          "name": "atualizado_em"
+        }
+      ],
+      "outputType": "array"
+    }
   }
 });

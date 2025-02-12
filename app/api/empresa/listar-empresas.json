@@ -23,16 +23,19 @@
           "columns": [
             {
               "table": "usuarios_empresas",
-              "column": "ref_id_usuario"
+              "column": "ref_id_usuario",
+              "recid": 1
             },
             {
               "table": "usuarios_empresas",
               "column": "ref_id_empresa",
-              "aggregate": ""
+              "aggregate": "",
+              "recid": 2
             },
             {
               "table": "empresas",
-              "column": "*"
+              "column": "*",
+              "recid": 3
             }
           ],
           "params": [
@@ -108,7 +111,8 @@
             {
               "table": "empresas",
               "column": "criado_em",
-              "direction": "ASC"
+              "direction": "ASC",
+              "recid": 1
             }
           ]
         }

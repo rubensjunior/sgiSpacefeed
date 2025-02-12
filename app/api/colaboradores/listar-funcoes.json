@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      },
+      {
+        "type": "number",
+        "name": "departamentoid"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "queryFuncoes",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "spacefeedBD",
+        "sql": {
+          "type": "select",
+          "columns": [
+            {
+              "table": "funcoes",
+              "column": "*"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.departamentoid}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "funcoes"
+          },
+          "primary": "id_funcao",
+          "joins": [],
+          "query": "select * from \"funcoes\" where \"funcoes\".\"ref_id_departamento\" = ?",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "funcoes.ref_id_departamento",
+                "field": "funcoes.ref_id_departamento",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.departamentoid}}",
+                "data": {
+                  "table": "funcoes",
+                  "column": "ref_id_departamento",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id_departamento",
+                    "inTable": "departamentos",
+                    "referenceType": "integer",
+                    "onUpdate": "NO ACTION",
+                    "onDelete": "CASCADE",
+                    "name": "ref_id_departamento"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          }
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "id_funcao"
+        },
+        {
+          "type": "text",
+          "name": "nome_funcao"
+        },
+        {
+          "type": "number",
+          "name": "ref_id_departamento"
+        },
+        {
+          "type": "number",
+          "name": "nivel_hierarquia"
+        },
+        {
+          "type": "number",
+          "name": "nivel_acesso"
+        }
+      ],
+      "outputType": "array",
+      "type": "dbconnector_select"
+    }
+  }
+}

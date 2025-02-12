@@ -1,4 +1,43 @@
-<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="colaboradores" appConnect="local" bootstrap_icons="cdn" -->
+<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="colaboradores" appConnect="local" bootstrap_icons="cdn" components="{dmxBootstrap5Offcanvas:{},dmxValidator:{},dmxFormatter:{},dmxBootstrap5TableGenerator:{},dmxDataTraversal:{}}" -->
+<dmx-data-detail id="editarColaborador" dmx-bind:data="listarColaboradores.data.queryColaboradores" key="id_usuario"></dmx-data-detail>
+<div class="offcanvas offcanvas-end" id="cadastrarOffcanvasColaborador" is="dmx-bs5-offcanvas" tabindex="-1">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Adicionar novo colaborador</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form id="cadastrarFormColaborador" is="dmx-serverconnect-form" method="post" action="/api/colaboradores/criar-colaborador" dmx-on:error="alertas.danger('Ocorreu um erro: '+cadastrarOffcanvasColaborador.cadastrarFormColaborador.lastError.status+cadastrarOffcanvasColaborador.cadastrarFormColaborador.lastError.message+cadastrarOffcanvasColaborador.cadastrarFormColaborador.lastError.response+'. Entre em contato com o suporte.');cadastrarOffcanvasColaborador.hide();cadastrarFormColaborador.reset()" dmx-on:success="alertas.success('Colaborador cadastrado com sucesso.');cadastrarOffcanvasColaborador.hide();cadastrarFormColaborador.reset();listarColaboradores.load({})">
+            <input type="hidden" class="form-control" id="idEmpresaSelecionada" name="idEmpresaSelecionada" aria-describedby="input1_help" dmx-bind:value="usuarioLogado.data.queryIdentificarUsuario.empresa_selecionada">
+            <div class="form-group mb-3"> <label for="nomeCompleto" class="form-label">Nome completo</label>
+                <input type="text" class="form-control" id="nomeCompleto" name="nomeCompleto" aria-describedby="input1_help">
+
+            </div>
+            <div class="form-group mb-3"> <label for="email" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" aria-describedby="input1_help">
+            </div>
+        </form>
+    </div>
+    <div class="d-flex flex-row py-3 border-top border-light-subtle justify-content-center"><button id="btn6" class="btn btn-light btn-custom" dmx-on:click="atualizarFormEmpresa.reset();editarOffcanvasPolo.hide();infoEmpresa.select(0)">Cancelar</button><button id="btn6" class="btn btn-primary ms-3 btn-custom" dmx-on:click="cadastrarFormColaborador.submit();listarColaboradores.load({})">Adicionar</button></div>
+</div>
+<div class="offcanvas offcanvas-end" id="atualizarOffcanvasColaborador" is="dmx-bs5-offcanvas" tabindex="-1">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">{{editarColaborador.data.nome_usuario}}</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" dmx-on:click="editarColaborador.select(0);editarFormColaborador.reset()"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form id="editarFormColaborador" is="dmx-serverconnect-form" method="post" action="/api/colaboradores/atualizar-colaborador" dmx-on:error="alertas.danger('Ocorreu um erro: '+atualizarOffcanvasColaborador.editarFormColaborador.lastError.status+atualizarOffcanvasColaborador.editarFormColaborador.lastError.message+atualizarOffcanvasColaborador.editarFormColaborador.lastError.response+'. Entre em contato com o suporte.');editarColaborador.select(0);editarFormColaborador.reset();atualizarOffcanvasColaborador.hide()" dmx-on:success="editarFormColaborador.reset();atualizarOffcanvasColaborador.hide();editarColaborador.select(0);alertas.success('Colaborador atualizado com sucesso!');listarColaboradores.load({})">
+            <input type="hidden" class="form-control" id="idColaboradorSelecionado" name="idColaboradorSelecionado" aria-describedby="input1_help" dmx-bind:value="editarColaborador.data.id_usuario">
+            <div class="form-group mb-3"> <label for="editnomeCompleto" class="form-label">Nome completo</label>
+                <input type="text" class="form-control" id="editnomeCompleto" name="editnomeCompleto" aria-describedby="input1_help" dmx-bind:value="editarColaborador.data.nome_usuario">
+
+            </div>
+            <div class="form-group mb-3"> <label for="editemail" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="editemail" name="editemail" aria-describedby="input1_help" dmx-bind:value="editarColaborador.data.email_usuario" data-rule-email="" data-msg-email="Insira um e-mail válido.">
+            </div>
+        </form>
+    </div>
+    <div class="d-flex flex-row py-3 border-top border-light-subtle justify-content-center"><button id="btn5" class="btn btn-light btn-custom" dmx-on:click="atualizarOffcanvasColaborador.hide();editarColaborador.select(0);editarFormColaborador.reset()">Cancelar</button><button id="btn5" class="btn btn-primary ms-3 btn-custom" dmx-on:click="editarFormColaborador.submit()">Atualizar</button></div>
+</div>
 <meta name="ac:route" content="/b/colaboradores">
 
 <div class="container-fluid mb-3 py-3 px-0">
@@ -13,19 +52,43 @@
             <h5 class="mt-1">Seus colaboradores</h5>
         </div>
         <div class="col text-end align-self-center">
-            <button id="btn1" class="btn btn-custom btn-primary" data-bs-toggle="offcanvas" data-bs-target="#cadatrarOffcanvasPolo">Adicionar novo</button>
+            <button id="btn1" class="btn btn-custom btn-primary" data-bs-toggle="offcanvas" data-bs-target="#cadastrarOffcanvasColaborador">Adicionar novo</button>
         </div>
     </div>
 </div>
-<div class="container-fluid p-4 border border-light-subtle rounded-4 bg-white text-center" id="cadastroEmpresaContainer">
+<div class="container-fluid p-4 border border-light-subtle rounded-4 bg-white text-center" id="cadastroColaboradores" dmx-show="listarColaboradores.data.queryColaboradores.isEmpty()">
     <div class="d-flex flex-column justify-content-center align-items-center">
         <h3 class="text-center">Cadastre Seus Colaboradores</h3>
-        <p class="text-center">Adicione seu primeiro colaborador do polo atual.</p><button id="btn2" class="btn btn-custom btn-primary mb-3" data-bs-toggle="offcanvas" data-bs-target="#cadatrarOffcanvasPolo">Adicionar novo colaborador</button><img src="/assets/images/15.png" class="img-fluid" width="280">
+        <p class="text-center">Adicione seu primeiro colaborador do polo atual.</p><button id="btn2" class="btn btn-custom btn-primary mb-3" data-bs-toggle="offcanvas" data-bs-target="#cadastrarOffcanvasColaborador">Adicionar novo colaborador</button><img src="/assets/images/15.png" class="img-fluid" width="280">
     </div>
 </div>
-<div class="container-fluid p-4 border border-light-subtle rounded-4 bg-white text-center" id="listaEmpresaContainer">
+<div class="container-fluid p-4 border border-light-subtle rounded-4 bg-white text-center" id="listaColaboradores" dmx-show="!listarColaboradores.data.queryColaboradores.isEmpty()">
     <div class="row">
         <div class="col">
+            <table class="table table-striped table-borderless">
+                <thead>
+                    <tr>
+                        <th class="text-start pb-3">NOME</th>
+                        <th class="text-start pb-3">E-MAIL</th>
+                        <th class="text-start pb-3">STATUS</th>
+                        <th scope="row" class="text-start pb-3"></th>
+                        <th scope="row" class="text-start pb-3"></th>
+                    </tr>
+                </thead>
+                <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="listarColaboradores.data.queryColaboradores" id="tableRepeat1">
+                    <tr>
+                        <td dmx-text="nome_usuario" class="text-start py-3"></td>
+                        <td dmx-text="email_usuario" class="text-start py-3"></td>
+                        <td dmx-text="status_usuario" class="text-start py-3"></td>
+                        <td class="text-end">
+                            <button id="btn3" class="btn btn-light btn-sm btn-custom">Atribuir função</button>
+                        </td>
+                        <td class="text-end">
+                            <button id="btn4" class="btn btn-light btn-sm btn-custom" dmx-on:click="editarColaborador.select(id_usuario)" data-bs-toggle="offcanvas" data-bs-target="#atualizarOffcanvasColaborador">Editar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/backoffice/colaboradores.ejs",
+      "linkedForm": "cadastrarFormColaborador"
+    },
+    "$_POST": [
+      {
+        "type": "number",
+        "fieldName": "idEmpresaSelecionada",
+        "name": "idEmpresaSelecionada"
+      },
+      {
+        "type": "text",
+        "fieldName": "nomeCompleto",
+        "name": "nomeCompleto"
+      },
+      {
+        "type": "text",
+        "fieldName": "email",
+        "options": {
+          "rules": {
+            "core:email": {
+              "message": "Insira um e-mail válido."
+            }
+          }
+        },
+        "name": "email"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "insertColaborador",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "spacefeedBD",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "usuarios",
+                "column": "nome_usuario",
+                "type": "text",
+                "value": "{{$_POST.nomeCompleto}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "email_usuario",
+                "type": "text",
+                "value": "{{$_POST.email}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "empresa_selecionada",
+                "type": "number",
+                "value": "{{$_POST.idEmpresaSelecionada}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "status_usuario",
+                "type": "text",
+                "value": "Ativo"
+              },
+              {
+                "table": "usuarios",
+                "column": "criado_em",
+                "type": "datetime",
+                "value": "{{NOW}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "atualizado_em",
+                "type": "datetime",
+                "value": "{{NOW}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "senha_usuario",
+                "type": "text",
+                "value": ""
+              }
+            ],
+            "table": "usuarios",
+            "returning": "id_usuario",
+            "query": "insert into \"usuarios\" (\"atualizado_em\", \"criado_em\", \"email_usuario\", \"empresa_selecionada\", \"nome_usuario\", \"senha_usuario\", \"status_usuario\") values (?, ?, ?, ?, ?, ?, ?) returning \"id_usuario\"",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.nomeCompleto}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.email}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.idEmpresaSelecionada}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{NOW}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "name": "insertUsuarioEmpresa",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "spacefeedBD",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "usuarios_empresas",
+                "column": "ref_id_usuario",
+                "type": "number",
+                "value": "{{insertColaborador.identity}}"
+              },
+              {
+                "table": "usuarios_empresas",
+                "column": "ref_id_empresa",
+                "type": "number",
+                "value": "{{$_POST.idEmpresaSelecionada}}"
+              },
+              {
+                "table": "usuarios_empresas",
+                "column": "status_vinculo",
+                "type": "text",
+                "value": "Ativo"
+              }
+            ],
+            "table": "usuarios_empresas",
+            "query": "insert into \"usuarios_empresas\" (\"ref_id_empresa\", \"ref_id_usuario\", \"status_vinculo\") values (?, ?, ?)",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{insertColaborador.identity}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.idEmpresaSelecionada}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  }
+}

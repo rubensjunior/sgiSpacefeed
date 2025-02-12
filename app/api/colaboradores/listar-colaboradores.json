@@ -1,0 +1,240 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "queryUsuarioAtual",
+        "module": "dbconnector",
+        "action": "single",
+        "options": {
+          "connection": "spacefeedBD",
+          "sql": {
+            "type": "select",
+            "columns": [
+              {
+                "table": "usuarios",
+                "column": "empresa_selecionada"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{identity}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "usuarios"
+            },
+            "primary": "id_usuario",
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "usuarios.id_usuario",
+                  "field": "usuarios.id_usuario",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{identity}}",
+                  "data": {
+                    "table": "usuarios",
+                    "column": "id_usuario",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "increments",
+                      "default": "",
+                      "primary": true,
+                      "unique": true,
+                      "nullable": false,
+                      "name": "id_usuario"
+                    }
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select \"empresa_selecionada\" from \"usuarios\" where \"usuarios\".\"id_usuario\" = ?"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "empresa_selecionada"
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "queryColaboradores",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "spacefeedBD",
+          "sql": {
+            "type": "select",
+            "columns": [
+              {
+                "table": "usuarios_empresas",
+                "column": "ref_id_empresa"
+              },
+              {
+                "table": "usuarios_empresas",
+                "column": "ref_id_usuario"
+              },
+              {
+                "table": "usuarios_empresas",
+                "column": "status_vinculo"
+              },
+              {
+                "table": "usuarios",
+                "column": "*"
+              }
+            ],
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{queryUsuarioAtual.empresa_selecionada}}",
+                "test": ""
+              }
+            ],
+            "table": {
+              "name": "usuarios_empresas"
+            },
+            "joins": [
+              {
+                "table": "usuarios",
+                "column": "*",
+                "type": "INNER",
+                "clauses": {
+                  "condition": "AND",
+                  "rules": [
+                    {
+                      "table": "usuarios",
+                      "column": "id_usuario",
+                      "operator": "equal",
+                      "operation": "=",
+                      "value": {
+                        "table": "usuarios_empresas",
+                        "column": "ref_id_usuario"
+                      }
+                    }
+                  ]
+                },
+                "primary": "id_usuario"
+              }
+            ],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "usuarios_empresas.ref_id_empresa",
+                  "field": "usuarios_empresas.ref_id_empresa",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": "{{queryUsuarioAtual.empresa_selecionada}}",
+                  "data": {
+                    "table": "usuarios_empresas",
+                    "column": "ref_id_empresa",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "reference",
+                      "primary": false,
+                      "unique": false,
+                      "nullable": false,
+                      "references": "id_empresa",
+                      "inTable": "empresas",
+                      "referenceType": "integer",
+                      "onUpdate": "NO ACTION",
+                      "onDelete": "CASCADE",
+                      "name": "ref_id_empresa"
+                    }
+                  },
+                  "operation": "=",
+                  "table": "usuarios_empresas"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "select \"usuarios_empresas\".\"ref_id_empresa\", \"usuarios_empresas\".\"ref_id_usuario\", \"usuarios_empresas\".\"status_vinculo\", \"usuarios\".* from \"usuarios_empresas\" inner join \"usuarios\" on \"usuarios\".\"id_usuario\" = \"usuarios_empresas\".\"ref_id_usuario\" where \"usuarios_empresas\".\"ref_id_empresa\" = ? order by \"usuarios\".\"nome_usuario\" ASC",
+            "orders": [
+              {
+                "table": "usuarios",
+                "column": "nome_usuario",
+                "direction": "ASC",
+                "recid": 1
+              }
+            ]
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "number",
+            "name": "ref_id_empresa"
+          },
+          {
+            "type": "number",
+            "name": "ref_id_usuario"
+          },
+          {
+            "type": "text",
+            "name": "status_vinculo"
+          },
+          {
+            "type": "number",
+            "name": "id_usuario"
+          },
+          {
+            "type": "text",
+            "name": "nome_usuario"
+          },
+          {
+            "type": "text",
+            "name": "email_usuario"
+          },
+          {
+            "type": "text",
+            "name": "senha_usuario"
+          },
+          {
+            "type": "number",
+            "name": "empresa_selecionada"
+          },
+          {
+            "type": "text",
+            "name": "status_usuario"
+          },
+          {
+            "type": "datetime",
+            "name": "criado_em"
+          },
+          {
+            "type": "datetime",
+            "name": "atualizado_em"
+          }
+        ],
+        "outputType": "array"
+      }
+    ]
+  }
+}

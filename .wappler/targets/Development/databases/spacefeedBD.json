@@ -13,8 +13,656 @@
       "public"
     ],
     "tables": {
+      "leads": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_lead": {
+            "db": {
+              "type": "increments",
+              "default": "",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "ref_id_empresa": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "CASCADE"
+            }
+          },
+          "ref_id_usuario_responsavel": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_usuario",
+              "inTable": "usuarios",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "SET NULL"
+            }
+          },
+          "nome": {
+            "db": {
+              "type": "string",
+              "maxLength": 100,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "telefone": {
+            "db": {
+              "type": "string",
+              "maxLength": 20,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "email": {
+            "db": {
+              "type": "string",
+              "maxLength": 100,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "status": {
+            "db": {
+              "type": "string",
+              "default": "Novo",
+              "maxLength": 20,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "origem": {
+            "db": {
+              "type": "string",
+              "maxLength": 50,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "criado_em": {
+            "db": {
+              "type": "timestamp",
+              "default": "knex.fn.now()",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        },
+        "sub": {
+          "leads_interacoes": "ref_id_lead"
+        }
+      },
+      "financeiro_transacoes": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_financeiro": {
+            "db": {
+              "type": "increments",
+              "default": "",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "ref_id_empresa": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "CASCADE"
+            }
+          },
+          "ref_id_usuario": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_usuario",
+              "inTable": "usuarios",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "SET NULL"
+            }
+          },
+          "tipo": {
+            "db": {
+              "type": "string",
+              "maxLength": 10,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "descricao": {
+            "db": {
+              "type": "text",
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "valor": {
+            "db": {
+              "type": "decimal",
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "data_transacao": {
+            "db": {
+              "type": "date",
+              "default": "CURRENT_DATE",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "status": {
+            "db": {
+              "type": "string",
+              "default": "Pendente",
+              "maxLength": 10,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "criado_em": {
+            "db": {
+              "type": "timestamp",
+              "default": "knex.fn.now()",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        }
+      },
+      "departamentos": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_departamento": {
+            "db": {
+              "type": "increments",
+              "default": "",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "nome_departamento": {
+            "db": {
+              "type": "string",
+              "maxLength": 50,
+              "primary": false,
+              "unique": true,
+              "nullable": false
+            }
+          }
+        },
+        "refs": {
+          "funcoes": "ref_id_departamento"
+        }
+      },
+      "usuarios_empresas": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "ref_id_usuario": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": false,
+              "references": "id_usuario",
+              "inTable": "usuarios",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "CASCADE"
+            }
+          },
+          "ref_id_empresa": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": false,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "CASCADE"
+            }
+          },
+          "status_vinculo": {
+            "db": {
+              "type": "string",
+              "default": "Ativo",
+              "maxLength": 10,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        },
+        "parent": "usuarios"
+      },
+      "usuarios": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_usuario": {
+            "db": {
+              "type": "increments",
+              "default": "",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "nome_usuario": {
+            "db": {
+              "type": "string",
+              "maxLength": 100,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "email_usuario": {
+            "db": {
+              "type": "string",
+              "maxLength": 100,
+              "primary": false,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "senha_usuario": {
+            "db": {
+              "type": "text",
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "empresa_selecionada": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "SET NULL"
+            }
+          },
+          "status_usuario": {
+            "db": {
+              "type": "string",
+              "default": "Ativo",
+              "maxLength": 10,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "criado_em": {
+            "db": {
+              "type": "timestamp",
+              "default": "knex.fn.now()",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "atualizado_em": {
+            "db": {
+              "type": "timestamp",
+              "default": "knex.fn.now()",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        },
+        "refs": {
+          "leads": "ref_id_usuario_responsavel",
+          "financeiro_transacoes": "ref_id_usuario",
+          "leads_interacoes": "ref_id_usuario",
+          "projetos": "ref_id_usuario_responsavel",
+          "projetos_usuarios": "ref_id_usuario",
+          "tarefas": "ref_id_usuario_responsavel",
+          "funcoes_usuarios": "ref_id_usuario"
+        },
+        "sub": {
+          "usuarios_empresas": "ref_id_usuario"
+        }
+      },
+      "leads_interacoes": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_interacao": {
+            "db": {
+              "type": "increments",
+              "default": "",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "ref_id_lead": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_lead",
+              "inTable": "leads",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "CASCADE"
+            }
+          },
+          "ref_id_usuario": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_usuario",
+              "inTable": "usuarios",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "SET NULL"
+            }
+          },
+          "tipo": {
+            "db": {
+              "type": "string",
+              "maxLength": 50,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "descricao": {
+            "db": {
+              "type": "text",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "data_interacao": {
+            "db": {
+              "type": "timestamp",
+              "default": "knex.fn.now()",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        },
+        "parent": "leads"
+      },
+      "projetos": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_projeto": {
+            "db": {
+              "type": "increments",
+              "default": "",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "ref_id_empresa": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "CASCADE"
+            }
+          },
+          "ref_id_usuario_responsavel": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_usuario",
+              "inTable": "usuarios",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "SET NULL"
+            }
+          },
+          "nome_projeto": {
+            "db": {
+              "type": "string",
+              "maxLength": 100,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "descricao": {
+            "db": {
+              "type": "text",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "data_inicio": {
+            "db": {
+              "type": "date",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "data_fim": {
+            "db": {
+              "type": "date",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "status": {
+            "db": {
+              "type": "string",
+              "default": "Aberto",
+              "maxLength": 20,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "criado_em": {
+            "db": {
+              "type": "timestamp",
+              "default": "knex.fn.now()",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        },
+        "sub": {
+          "projetos_usuarios": "ref_id_projeto"
+        },
+        "refs": {
+          "tarefas": "ref_id_projeto"
+        }
+      },
+      "projetos_usuarios": {
+        "db": {
+          "schema": "public"
+        },
+        "parent": "projetos"
+      },
+      "tarefas": {
+        "db": {
+          "schema": "public"
+        },
+        "columns": {
+          "id_tarefa": {
+            "db": {
+              "type": "increments",
+              "default": "",
+              "primary": true,
+              "unique": true,
+              "nullable": false
+            }
+          },
+          "ref_id_empresa": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_empresa",
+              "inTable": "empresas",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "CASCADE"
+            }
+          },
+          "ref_id_projeto": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_projeto",
+              "inTable": "projetos",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "SET NULL"
+            }
+          },
+          "ref_id_usuario_responsavel": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "unique": false,
+              "nullable": true,
+              "references": "id_usuario",
+              "inTable": "usuarios",
+              "referenceType": "integer",
+              "onUpdate": "NO ACTION",
+              "onDelete": "SET NULL"
+            }
+          },
+          "titulo": {
+            "db": {
+              "type": "string",
+              "maxLength": 200,
+              "primary": false,
+              "unique": false,
+              "nullable": false
+            }
+          },
+          "descricao": {
+            "db": {
+              "type": "text",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "status": {
+            "db": {
+              "type": "string",
+              "default": "Pendente",
+              "maxLength": 20,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "prioridade": {
+            "db": {
+              "type": "string",
+              "default": "Média",
+              "maxLength": 10,
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "data_vencimento": {
+            "db": {
+              "type": "date",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          },
+          "criado_em": {
+            "db": {
+              "type": "timestamp",
+              "default": "knex.fn.now()",
+              "primary": false,
+              "unique": false,
+              "nullable": true
+            }
+          }
+        }
+      },
       "empresas": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_empresa": {
             "db": {
@@ -161,626 +809,10 @@
           "funcoes_usuarios": "ref_id_empresa"
         }
       },
-      "leads": {
-        "db": {},
-        "columns": {
-          "id_lead": {
-            "db": {
-              "type": "increments",
-              "default": "",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "ref_id_empresa": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_empresa",
-              "inTable": "empresas",
-              "referenceType": "integer",
-              "onUpdate": "NO ACTION",
-              "onDelete": "CASCADE"
-            }
-          },
-          "ref_id_usuario_responsavel": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_usuario",
-              "inTable": "usuarios",
-              "referenceType": "integer",
-              "onUpdate": "NO ACTION",
-              "onDelete": "SET NULL"
-            }
-          },
-          "nome": {
-            "db": {
-              "type": "string",
-              "maxLength": 100,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "telefone": {
-            "db": {
-              "type": "string",
-              "maxLength": 20,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "email": {
-            "db": {
-              "type": "string",
-              "maxLength": 100,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "status": {
-            "db": {
-              "type": "string",
-              "default": "Novo",
-              "maxLength": 20,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "origem": {
-            "db": {
-              "type": "string",
-              "maxLength": 50,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "criado_em": {
-            "db": {
-              "type": "timestamp",
-              "default": "knex.fn.now()",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
-        },
-        "sub": {
-          "leads_interacoes": "ref_id_lead"
-        }
-      },
-      "financeiro_transacoes": {
-        "db": {},
-        "columns": {
-          "id_financeiro": {
-            "db": {
-              "type": "increments",
-              "default": "",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "ref_id_empresa": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_empresa",
-              "inTable": "empresas",
-              "referenceType": "integer",
-              "onUpdate": "NO ACTION",
-              "onDelete": "CASCADE"
-            }
-          },
-          "ref_id_usuario": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_usuario",
-              "inTable": "usuarios",
-              "referenceType": "integer",
-              "onUpdate": "NO ACTION",
-              "onDelete": "SET NULL"
-            }
-          },
-          "tipo": {
-            "db": {
-              "type": "string",
-              "maxLength": 10,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "descricao": {
-            "db": {
-              "type": "text",
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "valor": {
-            "db": {
-              "type": "decimal",
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "data_transacao": {
-            "db": {
-              "type": "date",
-              "default": "CURRENT_DATE",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "status": {
-            "db": {
-              "type": "string",
-              "default": "Pendente",
-              "maxLength": 10,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "criado_em": {
-            "db": {
-              "type": "timestamp",
-              "default": "knex.fn.now()",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
-        }
-      },
-      "usuarios_empresas": {
-        "db": {},
-        "columns": {
-          "ref_id_usuario": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": false,
-              "references": "id_usuario",
-              "inTable": "usuarios",
-              "referenceType": "integer",
-              "onUpdate": "NO ACTION",
-              "onDelete": "CASCADE"
-            }
-          },
-          "ref_id_empresa": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": false,
-              "references": "id_empresa",
-              "inTable": "empresas",
-              "referenceType": "integer",
-              "onUpdate": "NO ACTION",
-              "onDelete": "CASCADE"
-            }
-          }
-        },
-        "parent": "usuarios"
-      },
-      "departamentos": {
-        "db": {},
-        "columns": {
-          "id_departamento": {
-            "db": {
-              "type": "increments",
-              "default": "",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "nome_departamento": {
-            "db": {
-              "type": "string",
-              "maxLength": 50,
-              "primary": false,
-              "unique": true,
-              "nullable": false
-            }
-          }
-        },
-        "refs": {
-          "funcoes": "ref_id_departamento"
-        }
-      },
-      "usuarios": {
-        "db": {},
-        "columns": {
-          "id_usuario": {
-            "db": {
-              "type": "increments",
-              "default": "",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "nome_usuario": {
-            "db": {
-              "type": "string",
-              "maxLength": 100,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "email_usuario": {
-            "db": {
-              "type": "string",
-              "maxLength": 100,
-              "primary": false,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "senha_usuario": {
-            "db": {
-              "type": "text",
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "empresa_selecionada": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_empresa",
-              "inTable": "empresas",
-              "referenceType": "integer",
-              "onUpdate": "NO ACTION",
-              "onDelete": "SET NULL"
-            }
-          },
-          "status_usuario": {
-            "db": {
-              "type": "string",
-              "default": "Ativo",
-              "maxLength": 10,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "criado_em": {
-            "db": {
-              "type": "timestamp",
-              "default": "knex.fn.now()",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "atualizado_em": {
-            "db": {
-              "type": "timestamp",
-              "default": "knex.fn.now()",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
-        },
-        "refs": {
-          "leads": "ref_id_usuario_responsavel",
-          "financeiro_transacoes": "ref_id_usuario",
-          "leads_interacoes": "ref_id_usuario",
-          "projetos": "ref_id_usuario_responsavel",
-          "projetos_usuarios": "ref_id_usuario",
-          "tarefas": "ref_id_usuario_responsavel",
-          "funcoes_usuarios": "ref_id_usuario"
-        },
-        "sub": {
-          "usuarios_empresas": "ref_id_usuario"
-        }
-      },
-      "leads_interacoes": {
-        "db": {},
-        "columns": {
-          "id_interacao": {
-            "db": {
-              "type": "increments",
-              "default": "",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "ref_id_lead": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_lead",
-              "inTable": "leads",
-              "referenceType": "integer",
-              "onUpdate": "NO ACTION",
-              "onDelete": "CASCADE"
-            }
-          },
-          "ref_id_usuario": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_usuario",
-              "inTable": "usuarios",
-              "referenceType": "integer",
-              "onUpdate": "NO ACTION",
-              "onDelete": "SET NULL"
-            }
-          },
-          "tipo": {
-            "db": {
-              "type": "string",
-              "maxLength": 50,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "descricao": {
-            "db": {
-              "type": "text",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "data_interacao": {
-            "db": {
-              "type": "timestamp",
-              "default": "knex.fn.now()",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
-        },
-        "parent": "leads"
-      },
-      "projetos": {
-        "db": {},
-        "columns": {
-          "id_projeto": {
-            "db": {
-              "type": "increments",
-              "default": "",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "ref_id_empresa": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_empresa",
-              "inTable": "empresas",
-              "referenceType": "integer",
-              "onUpdate": "NO ACTION",
-              "onDelete": "CASCADE"
-            }
-          },
-          "ref_id_usuario_responsavel": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_usuario",
-              "inTable": "usuarios",
-              "referenceType": "integer",
-              "onUpdate": "NO ACTION",
-              "onDelete": "SET NULL"
-            }
-          },
-          "nome_projeto": {
-            "db": {
-              "type": "string",
-              "maxLength": 100,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "descricao": {
-            "db": {
-              "type": "text",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "data_inicio": {
-            "db": {
-              "type": "date",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "data_fim": {
-            "db": {
-              "type": "date",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "status": {
-            "db": {
-              "type": "string",
-              "default": "Aberto",
-              "maxLength": 20,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "criado_em": {
-            "db": {
-              "type": "timestamp",
-              "default": "knex.fn.now()",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
-        },
-        "sub": {
-          "projetos_usuarios": "ref_id_projeto"
-        },
-        "refs": {
-          "tarefas": "ref_id_projeto"
-        }
-      },
-      "projetos_usuarios": {
-        "db": {},
-        "parent": "projetos"
-      },
-      "tarefas": {
-        "db": {},
-        "columns": {
-          "id_tarefa": {
-            "db": {
-              "type": "increments",
-              "default": "",
-              "primary": true,
-              "unique": true,
-              "nullable": false
-            }
-          },
-          "ref_id_empresa": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_empresa",
-              "inTable": "empresas",
-              "referenceType": "integer",
-              "onUpdate": "NO ACTION",
-              "onDelete": "CASCADE"
-            }
-          },
-          "ref_id_projeto": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_projeto",
-              "inTable": "projetos",
-              "referenceType": "integer",
-              "onUpdate": "NO ACTION",
-              "onDelete": "SET NULL"
-            }
-          },
-          "ref_id_usuario_responsavel": {
-            "db": {
-              "type": "reference",
-              "primary": false,
-              "unique": false,
-              "nullable": true,
-              "references": "id_usuario",
-              "inTable": "usuarios",
-              "referenceType": "integer",
-              "onUpdate": "NO ACTION",
-              "onDelete": "SET NULL"
-            }
-          },
-          "titulo": {
-            "db": {
-              "type": "string",
-              "maxLength": 200,
-              "primary": false,
-              "unique": false,
-              "nullable": false
-            }
-          },
-          "descricao": {
-            "db": {
-              "type": "text",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "status": {
-            "db": {
-              "type": "string",
-              "default": "Pendente",
-              "maxLength": 20,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "prioridade": {
-            "db": {
-              "type": "string",
-              "default": "Média",
-              "maxLength": 10,
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "data_vencimento": {
-            "db": {
-              "type": "date",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          },
-          "criado_em": {
-            "db": {
-              "type": "timestamp",
-              "default": "knex.fn.now()",
-              "primary": false,
-              "unique": false,
-              "nullable": true
-            }
-          }
-        }
-      },
       "funcoes": {
-        "db": {},
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id_funcao": {
             "db": {
@@ -835,8 +867,9 @@
         }
       },
       "funcoes_usuarios": {
-        "db": {},
-        "parent": "funcoes",
+        "db": {
+          "schema": "public"
+        },
         "columns": {
           "id": {
             "db": {
@@ -886,7 +919,8 @@
               "onDelete": "CASCADE"
             }
           }
-        }
+        },
+        "parent": "funcoes"
       }
     },
     "views": {}
