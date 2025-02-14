@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "idempresa"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "updateEmpresaSelecionada",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "spacefeedBD",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "usuarios",
+              "column": "empresa_selecionada",
+              "type": "number",
+              "value": "{{$_GET.idempresa}}"
+            }
+          ],
+          "table": "usuarios",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "id_usuario",
+                "field": "id_usuario",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{identity}}",
+                "data": {
+                  "column": "id_usuario"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "returning": "id_usuario",
+          "query": "update \"usuarios\" set \"empresa_selecionada\" = ? where \"id_usuario\" = ?",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_GET.idempresa}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P2",
+              "value": "{{identity}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

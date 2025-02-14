@@ -42,15 +42,15 @@
             </tbody>
         </table>
     </div>
-    <div class="d-flex flex-row py-3 border-top border-light-subtle justify-content-center"><button id="btnCancelar" class="btn btn-light btn-custom" dmx-on:click="cadastrarFormFuncao.reset();editarColaborador.select(0);cadastrarOffcanvasFuncao.hide();listaFuncaoColaborador.reset()">Cancelar</button><button id="btnAdicionar" class="btn btn-primary ms-3 btn-custom" dmx-on:click="cadastrarFormFuncao.submit();cadastrarFormFuncao.reset()">Adicionar</button></div>
+    <div class="d-flex flex-row py-3 border-top border-light-subtle justify-content-center"><button id="btnAdicionar" class="btn btn-primary btn-custom" dmx-on:click="cadastrarFormFuncao.submit();cadastrarFormFuncao.reset()">Adicionar</button></div>
 </div>
 <div class="offcanvas offcanvas-end" id="cadastrarOffcanvasColaborador" is="dmx-bs5-offcanvas" tabindex="-1">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title">Adicionar novo colaborador</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" dmx-on:click="cadastrarFormColaborador.reset()"></button>
     </div>
     <div class="offcanvas-body">
-        <form id="cadastrarFormColaborador" is="dmx-serverconnect-form" method="post" action="/api/colaboradores/criar-colaborador" dmx-on:error="alertas.danger('Ocorreu um erro: '+cadastrarOffcanvasColaborador.cadastrarFormColaborador.lastError.status+cadastrarOffcanvasColaborador.cadastrarFormColaborador.lastError.message+cadastrarOffcanvasColaborador.cadastrarFormColaborador.lastError.response+'. Entre em contato com o suporte.');cadastrarOffcanvasColaborador.hide();cadastrarFormColaborador.reset()" dmx-on:success="alertas.success('Colaborador cadastrado com sucesso.');cadastrarOffcanvasColaborador.hide();cadastrarFormColaborador.reset();listarColaboradores.load({})">
+        <form id="cadastrarFormColaborador" is="dmx-serverconnect-form" method="post" action="/api/colaboradores/criar-colaborador" dmx-on:error="alertas.danger('Ocorreu um erro: '+cadastrarOffcanvasColaborador.cadastrarFormColaborador.lastError.status+cadastrarOffcanvasColaborador.cadastrarFormColaborador.lastError.message+cadastrarOffcanvasColaborador.cadastrarFormColaborador.lastError.response+'. Entre em contato com o suporte.');cadastrarOffcanvasColaborador.hide();cadastrarFormColaborador.reset()" dmx-on:success="alertas.success('Colaborador cadastrado com sucesso!');cadastrarOffcanvasColaborador.hide();cadastrarFormColaborador.reset();listarColaboradores.load({})">
             <input type="hidden" class="form-control" id="idEmpresaSelecionada" name="idEmpresaSelecionada" aria-describedby="input1_help" dmx-bind:value="usuarioLogado.data.queryIdentificarUsuario.empresa_selecionada">
             <div class="form-group mb-3"> <label for="nomeCompleto" class="form-label">Nome completo</label>
                 <input type="text" class="form-control" id="nomeCompleto" name="nomeCompleto" aria-describedby="input1_help">
@@ -61,7 +61,7 @@
             </div>
         </form>
     </div>
-    <div class="d-flex flex-row py-3 border-top border-light-subtle justify-content-center"><button id="btn6" class="btn btn-light btn-custom" dmx-on:click="atualizarFormEmpresa.reset();editarOffcanvasPolo.hide();infoEmpresa.select(0)">Cancelar</button><button id="btn6" class="btn btn-primary ms-3 btn-custom" dmx-on:click="cadastrarFormColaborador.submit();listarColaboradores.load({})">Adicionar</button></div>
+    <div class="d-flex flex-row py-3 border-top border-light-subtle justify-content-center"><button id="btn6" class="btn btn-primary btn-custom" dmx-on:click="cadastrarFormColaborador.submit();listarColaboradores.load({})">Adicionar</button></div>
 </div>
 <div class="offcanvas offcanvas-end" id="atualizarOffcanvasColaborador" is="dmx-bs5-offcanvas" tabindex="-1">
     <div class="offcanvas-header">
@@ -87,7 +87,7 @@
             </div>
         </form>
     </div>
-    <div class="d-flex flex-row py-3 border-top border-light-subtle justify-content-center"><button id="btn5" class="btn btn-light btn-custom" dmx-on:click="atualizarOffcanvasColaborador.hide();editarColaborador.select(0);editarFormColaborador.reset()">Cancelar</button><button id="btn5" class="btn btn-primary ms-3 btn-custom" dmx-on:click="editarFormColaborador.submit()">Atualizar</button></div>
+    <div class="d-flex flex-row py-3 border-top border-light-subtle justify-content-center"><button id="btn5" class="btn btn-primary btn-custom" dmx-on:click="editarFormColaborador.submit()">Atualizar</button></div>
 </div>
 <meta name="ac:route" content="/b/colaboradores">
 

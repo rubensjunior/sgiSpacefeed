@@ -60,8 +60,7 @@
                 <img src="/assets/images/appIcon.ico" width="64" height="64" class="me-3">
                 <div class="d-flex flex-column justify-content-center">
                   <h5 class="m-0 text-white">Bem-vindo {{usuarioLogado.data.queryIdentificarUsuario.nome_usuario.split(' ')[0]}}</h5>
-                  <p class="m-0 small text-secondary" dmx-show="!usuarioLogado.data.queryIdentificarUsuario.empresa_selecionada.isEmpty()">{{usuarioLogado.data.queryEmpresaSelecionadaDados.nome_polo}}</p>
-                  <p class="m-0 small text-secondary" dmx-show="usuarioLogado.data.queryIdentificarUsuario.empresa_selecionada.isEmpty()">Escolha uma empresa ou crie uma caso não exista<br>clicando em "Polos" no menu lateral.</p>
+                  <p class="m-0 small text-secondary">{{usuarioLogado.data.queryEmpresaSelecionadaDados.nome_polo}}</p>
                 </div>
 
               </div>

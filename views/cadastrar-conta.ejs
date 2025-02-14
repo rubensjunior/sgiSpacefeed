@@ -13,9 +13,13 @@
                     <form id="cadastrarFormConta" is="dmx-serverconnect-form" method="post" action="/api/aoth/nova-conta" dmx-on:error="alertas.danger('Ocorreu um erro: '+lastError.status+lastError.message+lastError.response+'. Entre em contato com o suporte: suporte@spacefeed.app');cadastrarFormConta.reset();visibilidade.setValue(0)" dmx-on:success="cadastrarFormConta.reset();navegacao.goto('/b/cadastrar-polo')" dmx-on:invalid="alertas.warning(status+' Voce ja possui uma conta com este e-mail.')">
 
                         <div class="d-flex flex-column">
+                            <div class="form-group mb-3"> <label for="nomePol" class="form-label">*Nome do polo</label>
+                                <input type="text" class="form-control" id="nomePol" name="nomePol" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
+                            </div>
                             <div class="form-group mb-3"> <label for="nomeUsuario" class="form-label">*Nome completo</label>
                                 <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
                             </div>
+
                             <div class="form-group mb-3"> <label for="emailUsuario" class="form-label">*E-mail</label>
                                 <input type="email" class="form-control" id="emailUsuario" name="emailUsuario" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório." data-rule-email="" data-msg-email="Insira um e-mail válido!">
                             </div>

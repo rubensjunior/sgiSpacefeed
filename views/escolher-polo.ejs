@@ -1,0 +1,16 @@
+<!-- Wappler include head-page="layouts/backoffice" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="escolherpolo" appConnect="local" bootstrap_icons="cdn" components="{dmxFormatter:{}}" -->
+<dmx-serverconnect id="SelecionarEmpresa" url="/api/aoth/selecionar-polo" noload="true" dmx-param:idempresa=""></dmx-serverconnect>
+<dmx-serverconnect id="meuUsuario" url="/api/aoth/identificando-usuario"></dmx-serverconnect>
+<dmx-serverconnect id="meusPolos" url="/api/empresa/listar-empresas"></dmx-serverconnect>
+<div class="container vh-100">
+    <div class="row align-items-center h-100 justify-content-center">
+        <div class="col-md-5 rounded-2 p-4 border rounded border-1 border-light-subtle">
+            <h3 class="text-center mb-4">Olá {{meuUsuario.data.queryIdentificarUsuario.nome_usuario}}</h3>
+            <select id="selectPolo" class="form-select select-form text-center mb-3" optiontext="nome_polo" optionvalue="id_empresa" dmx-bind:options="meusPolos.data.queryEmpresas" name="selectPolo">
+                <option value="" disabled>Escolha o polo da sua lista</option>
+            </select>
+            <button id="btn1" class="btn btn-primary btn-custom w-100" dmx-on:click="SelecionarEmpresa.load({idempresa: selectPolo.selectedValue});navegacao.goto('/b/index')">Selecionar</button>
+        </div>
+    </div>
+</div>
+<meta name="ac:route" content="/escolher-polo">

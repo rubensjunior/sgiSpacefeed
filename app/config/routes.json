@@ -25,6 +25,11 @@
       "path": "/b/colaboradores",
       "page": "backoffice/colaboradores",
       "layout": "backoffice"
+    },
+    {
+      "path": "/escolher-polo",
+      "page": "escolher-polo",
+      "layout": "main"
     }
   ],
   "layouts": {

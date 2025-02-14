@@ -6,5 +6,9 @@
   "cadastrar-empresa.ejs": {
     "layoutPage": "main",
     "description": ""
+  },
+  "escolher-polo.ejs": {
+    "layoutPage": "main",
+    "description": ""
   }
 }

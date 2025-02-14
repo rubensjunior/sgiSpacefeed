@@ -23,19 +23,16 @@
           "columns": [
             {
               "table": "usuarios_empresas",
-              "column": "ref_id_usuario",
-              "recid": 1
+              "column": "ref_id_usuario"
             },
             {
               "table": "usuarios_empresas",
               "column": "ref_id_empresa",
-              "aggregate": "",
-              "recid": 2
+              "aggregate": ""
             },
             {
               "table": "empresas",
-              "column": "*",
-              "recid": 3
+              "column": "*"
             }
           ],
           "params": [
@@ -99,14 +96,35 @@
                     "name": "ref_id_usuario"
                   }
                 },
-                "operation": "=",
-                "table": "usuarios_empresas"
+                "operation": "="
+              },
+              {
+                "id": "usuarios_empresas.status_vinculo",
+                "field": "usuarios_empresas.status_vinculo",
+                "type": "string",
+                "operator": "equal",
+                "value": "Ativo",
+                "data": {
+                  "table": "usuarios_empresas",
+                  "column": "status_vinculo",
+                  "type": "text",
+                  "columnObj": {
+                    "type": "string",
+                    "default": "Ativo",
+                    "maxLength": 10,
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "name": "status_vinculo"
+                  }
+                },
+                "operation": "="
               }
             ],
             "conditional": null,
             "valid": true
           },
-          "query": "select \"usuarios_empresas\".\"ref_id_usuario\", \"usuarios_empresas\".\"ref_id_empresa\", \"empresas\".* from \"usuarios_empresas\" inner join \"empresas\" on \"empresas\".\"id_empresa\" = \"usuarios_empresas\".\"ref_id_empresa\" where \"usuarios_empresas\".\"ref_id_usuario\" = ? order by \"empresas\".\"criado_em\" ASC",
+          "query": "select \"usuarios_empresas\".\"ref_id_usuario\", \"usuarios_empresas\".\"ref_id_empresa\", \"empresas\".* from \"usuarios_empresas\" inner join \"empresas\" on \"empresas\".\"id_empresa\" = \"usuarios_empresas\".\"ref_id_empresa\" where \"usuarios_empresas\".\"ref_id_usuario\" = ? and \"usuarios_empresas\".\"status_vinculo\" = ? order by \"empresas\".\"criado_em\" ASC",
           "orders": [
             {
               "table": "empresas",
