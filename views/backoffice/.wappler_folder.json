@@ -10,5 +10,9 @@
   "colaboradores.ejs": {
     "layoutPage": "backoffice",
     "description": ""
+  },
+  "financeiro.ejs": {
+    "layoutPage": "backoffice",
+    "description": ""
   }
 }

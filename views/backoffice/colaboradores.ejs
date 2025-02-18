@@ -133,10 +133,10 @@
                         <td dmx-text="status_vinculo" class="text-start">
                         </td>
                         <td class="text-end">
-                            <button id="btn3" class="btn btn-light btn-sm btn-custom" data-bs-toggle="offcanvas" data-bs-target="#cadastrarOffcanvasFuncao" dmx-on:click="listaFuncaoColaborador.load({empresacolaboradorselecionado: usuarioLogado.data.queryIdentificarUsuario.empresa_selecionada, idcolaboradoradorselecionado: id_usuario});editarColaborador.select(id_usuario)">Atribuir função</button>
+
                         </td>
                         <td class="text-end">
-                            <button id="btn4" class="btn btn-light btn-sm btn-custom" dmx-on:click="editarColaborador.select(id_usuario)" data-bs-toggle="offcanvas" data-bs-target="#atualizarOffcanvasColaborador">Editar</button>
+                            <button id="btn3" class="btn btn-light btn-sm btn-custom" data-bs-toggle="offcanvas" data-bs-target="#cadastrarOffcanvasFuncao" dmx-on:click="listaFuncaoColaborador.load({empresacolaboradorselecionado: usuarioLogado.data.queryIdentificarUsuario.empresa_selecionada, idcolaboradoradorselecionado: id_usuario});editarColaborador.select(id_usuario)">Atribuir função</button><button id="btn4" class="btn btn-light btn-sm btn-custom ms-2" dmx-on:click="editarColaborador.select(id_usuario)" data-bs-toggle="offcanvas" data-bs-target="#atualizarOffcanvasColaborador">Editar</button>
                         </td>
                     </tr>
                 </tbody>

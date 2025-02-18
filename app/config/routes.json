@@ -30,6 +30,11 @@
       "path": "/escolher-polo",
       "page": "escolher-polo",
       "layout": "main"
+    },
+    {
+      "path": "/b/financeiro",
+      "page": "backoffice/financeiro",
+      "layout": "backoffice"
     }
   ],
   "layouts": {
