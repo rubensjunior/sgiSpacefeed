@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "idempresalancamentosatual"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "queryLancamentos",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "spacefeedBD",
+        "sql": {
+          "type": "select",
+          "columns": [
+            {
+              "table": "financeiro",
+              "column": "*"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.idempresalancamentosatual}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "financeiro"
+          },
+          "primary": "id_financeiro",
+          "joins": [],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "financeiro.ref_id_empresa",
+                "field": "financeiro.ref_id_empresa",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.idempresalancamentosatual}}",
+                "data": {
+                  "table": "financeiro",
+                  "column": "ref_id_empresa",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": false,
+                    "references": "id_empresa",
+                    "inTable": "empresas",
+                    "referenceType": "integer",
+                    "onUpdate": "NO ACTION",
+                    "onDelete": "CASCADE",
+                    "name": "ref_id_empresa"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select * from \"financeiro\" where \"financeiro\".\"ref_id_empresa\" = ?"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "id_financeiro"
+        },
+        {
+          "type": "number",
+          "name": "ref_id_empresa"
+        },
+        {
+          "type": "number",
+          "name": "ref_id_usuario"
+        },
+        {
+          "type": "text",
+          "name": "tipo"
+        },
+        {
+          "type": "text",
+          "name": "categoria"
+        },
+        {
+          "type": "text",
+          "name": "descricao"
+        },
+        {
+          "type": "text",
+          "name": "metodo_pagamento"
+        },
+        {
+          "type": "date",
+          "name": "data_vencimento"
+        },
+        {
+          "type": "text",
+          "name": "status"
+        },
+        {
+          "type": "datetime",
+          "name": "criado_em"
+        },
+        {
+          "type": "number",
+          "name": "valor_bruto"
+        },
+        {
+          "type": "number",
+          "name": "desconto"
+        },
+        {
+          "type": "number",
+          "name": "valor_liquido"
+        },
+        {
+          "type": "datetime",
+          "name": "modificado_em"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}
